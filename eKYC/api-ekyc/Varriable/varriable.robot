@@ -19,10 +19,9 @@ ${RETURN_FACERECFAIL}           Face Match Failed
 # ${FILE_NAME}               /Users/patcharapol/Desktop/eKYC/[QA]eKYC_TEST_Doc_Version 1.2.2.xlsx    
 # ${FILE_NAME}                  ../eKYC/eKYC/api-ekyc/templete.xlsx
 
-${FILE_CS}                    ../eKYC/eKYC/api-ekyc/Counter_service.xlsx  
-${FILE_NAME}                  ../eKYC/eKYC/api-ekyc/[QA]eKYC_TEST_Doc_Version 1.5.xlsx
-${FILE_NAME_QR}               ../eKYC/eKYC/api-ekyc/Automate_test_QR_code_jouney.xlsx
-
+${FILE_CS}                    ../eKYC_nonprod/eKYC/api-ekyc/Counter_service.xlsx  
+${FILE_NAME}                  ../eKYC_nonprod/eKYC/api-ekyc/[QA]eKYC_TEST_Doc_Version 1.5.xlsx
+${FILE_NAME_QR}               ../eKYC_nonprod/eKYC/api-ekyc/Automate_test_QR_code_jouney.xlsx
 
 ${SEND_OTP}     {
 ...       "kyc_trans_id" : "UL20201216",
