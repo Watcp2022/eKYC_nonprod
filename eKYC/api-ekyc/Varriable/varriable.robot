@@ -1,4 +1,3 @@
-***Settings***
 
 ***Variables***
 
@@ -15,76 +14,10 @@ ${LN_DETECT_FAIL}               Liveness Detect Failed
 ${RETURN_LN_TIME_OUT}           Request Timeout
 ${RETURN_FACERECFAIL}           Face Match Failed
 
-#FILENAME Excel
-# ${FILE_NAME}               /Users/patcharapol/Desktop/eKYC/[QA]eKYC_TEST_Doc_Version 1.2.2.xlsx    
-# ${FILE_NAME}                  ../eKYC/eKYC/api-ekyc/templete.xlsx
 
 ${FILE_CS}                    ../eKYC_nonprod/eKYC/api-ekyc/Counter_service.xlsx  
 ${FILE_NAME}                  ../eKYC_nonprod/eKYC/api-ekyc/[QA]eKYC_TEST_Doc_Version 1.5.xlsx
 ${FILE_NAME_QR}               ../eKYC_nonprod/eKYC/api-ekyc/Automate_test_QR_code_jouney.xlsx
-
-${SEND_OTP}     {
-...       "kyc_trans_id" : "UL20201216",
-...       "mobile_no" : "089xxxxxxx",
-...       "language" : "TH",
-...         }
-
-${UNHAPPY_SEND_OTP}     {
-...       "kyc_trans_id" : "UL20201216",
-...       "mobile_no" : "089xxxxxxx",
-...       "language" : "TH",
-...     }
-
-${VERRIFY_OTP}      {
-...   "kyc_trans_id" : "UL20201216",
-...   "otp_value" : "123456",
-...   "otp_ref" : "ABCC"
-...         }
-
-${UNHAPPY_VERRIFY_OTP}      {
-...   "kyc_trans_id" : "UL20201216",
-...   "otp_value" : "123456",
-...   "otp_ref" : "ABCC"
-...     }
-
-${CHECK_DOPA}     {
-...      "kyc_trans_id": "EU2021012100001",
-...      "laser": "JT2095xxxxxx"
-...         }
-
-${UNHAPPY_CHECK_DOPA}     {
-...     "kyc_trans_id": "EU2021012100001",
-...     "laser": "JT2095xxxxxx"
-...     }
- 
-${CHECK_DOPA_FAIL}     {
-...      "kyc_trans_id": "EU2021012100001",
-...      "laser": "JT2095bbbbbb"
-...         }
-
- 
-${CHECK_DOPA_ERROR_CHIP_NO}     {
-...      "kyc_trans_id": "EU2021012100001",
-...      "laser": "JT2095bbbbbb"
-...         }
-
- 
-${CHECK_DOPA_CARD_EXPIRE}     {
-...      "kyc_trans_id": "EU2021012100001",
-...      "laser": "JT2095cccccc"
-...         }
-
-
-${CHECK_DOPA_CARD_NOT_FOUND_LASER_CODE}     {
-...      "kyc_trans_id": "EU2021012100001",
-...      "laser": "JT2095eeeeee"
-...         }
-
- 
-${CHECK_DOPA_CARD_LOSS_DATA}     {
-...      "kyc_trans_id": "EU2021012100001",
-...      "laser": "JT2095ffffff"
-...         }
 
 
 ####RESPONSE
