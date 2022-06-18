@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.2 on win32)" generated="20210806 11:12:17.760" rpa="false" schemaversion="2">
+<suite id="s1" name="02 KYC Unhappy API" source="C:\Users\T640150\Desktop\eKYC\api-ekyc\Test case\02_KYC_Unhappy_API.robot">
+<kw name="Start Project" library="Main" type="SETUP">
+<kw name="Login_Get_Token" library="Login_api_page">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URL_CORE_SERVICE}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210806 11:12:18.527" level="INFO">Creating Session using : alias=eKYC, url=https://tablet-preprod.onlinebanking-partner-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210806 11:12:18.527" endtime="20210806 11:12:18.527"/>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<var>${body}</var>
+<arg>{"username": "EKYC003", "password": "P@ssw0rd", "partner_code": "TCRB-TABLET"}</arg>
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<msg timestamp="20210806 11:12:18.527" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20210806 11:12:18.528" level="INFO">To JSON using : content={"username": "EKYC003", "password": "P@ssw0rd", "partner_code": "TCRB-TABLET"} </msg>
+<msg timestamp="20210806 11:12:18.528" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20210806 11:12:18.528" level="INFO">${body} = {'username': 'EKYC003', 'password': 'P@ssw0rd', 'partner_code': 'TCRB-TABLET'}</msg>
+<status status="PASS" starttime="20210806 11:12:18.527" endtime="20210806 11:12:18.528"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_LOGIN}</arg>
+<arg>headers=&amp;{HEADER_LOGIN}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20210806 11:12:21.758" level="INFO">POST Request : url=https://tablet-preprod.onlinebanking-partner-bottech.com/tcrb-platform-kyc/v1/login 
+ path_url=/tcrb-platform-kyc/v1/login 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Correlation-Id': 'hfverbnykjadwedfasvbetj', 'Content-Length': '78', 'Content-Type': 'application/json'} 
+ body=b'{"username": "EKYC003", "password": "P@ssw0rd", "partner_code": "TCRB-TABLET"}' 
+ </msg>
+<msg timestamp="20210806 11:12:21.758" level="INFO">POST Response : url=https://tablet-preprod.onlinebanking-partner-bottech.com/tcrb-platform-kyc/v1/login 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json', 'Content-Length': '3873', 'Connection': 'keep-alive', 'Date': 'Fri, 06 Aug 2021 04:12:21 GMT', 'x-amzn-RequestId': '15884793-e170-4f04-bfb7-89b7ac2c5b10', 'x-amz-apigw-id': 'DoF5dHItyQ0FaBg=', 'X-Amzn-Trace-Id': 'Root=1-610cb6a2-14ca98a54a4af30b7a2edc88', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 ef90f11542c3d3e8c19ae090ce770731.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'KUL50-C1', 'X-Amz-Cf-Id': 'xeub3kCN_eHSy33CIwQUXXgiDz1DJAIrrEXqBOIeMYEpgUjOJOfgww=='} 
+ body={"status":{"code":"0","message":"Success","remark":null,"user_code":null,"user_message_en":null,"user_message_th":null},"data":{"name":"TB0003","surname":"","username":"ekyc003","role":[{"name":"eKYC Role20"}],"access_token":"eyJraWQiOiJldkJhTWlBcUh5MkIrczU5eUl2YmtQQkxYRW53cjZDaE5QT3NrTzdVWEkwPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI4MzU4MTNmZS1hMGVhLTQ5ODItYjgwNS02YzdjN2VkMjhmZTQiLCJldmVudF9pZCI6IjMzZTZjNjQwLTM5YjItNDNhOS04ODRiLWIwZWFlY2M3OTg1YiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2MjgyMjMxNDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV9Zb0U5UFBHbVAiLCJleHAiOjE2MjgyMjY3NDEsImlhdCI6MTYyODIyMzE0MSwianRpIjoiNDcyMTZlZjAtOWQxMS00NTJlLWJhMjgtODc3YjhiYWZhMjkzIiwiY2xpZW50X2lkIjoiMnJhbWxyc3E0OG8xMzE4bGFqZmdhMnRhb2kiLCJ1c2VybmFtZSI6ImVreWMwMDMifQ.IE_wKKz8_ExtSQdo53FGMHMthVyrKq84hOp1mwM8el6Ya4H-Uy5jDs2LRCi5mrFddmw05HkiGHXBSUECxfrDuvd_x7a0GPqMCZ6qEB5VZU8N4VG3wiHmcpuD3QLtCZuNQAOoZxt_72N7Cweh1Fax3nlPu0dtxKHrwav7DNfJagvMmDzUc3iPy2_tK9-jyNR7LTdn8DE3v-xOkB3bzqtpFfN4R7lxslZYDzrSC5fppp3pTP6XXEUh178t-Jz1WSSYRY_yD5EMwFwVoIzFxGbmqejwXly3rCMIHcHuGKF1dh9cEPGY3L9cdd7s4GShh_05k3kI1GwurV5RMMeh8TqdUQ","refresh_token":"eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.X1jENvYXaF__D3WZTrSQjTItaPCUBh-8Td54PrDg423zgBN_Tvt9Zhah8k3OgJyfszR_LDCrbsx7rD0Gb_BBheqPOLo3-DzmoYG-UHHRS1BMa4m612iTZzorRSq8D4XUFwwr_aoKnk2mN2abxtfgnULojhnbAPj8b4oSN59OznoU7bm33hGMMKzGiiIVHW51jhhAXseQg550tZEe_jX4A4IGEXD3y70QkawPlM1yDKsv-lGfu-cEt2l-z20LSqQj2P99kh39NvpjUpz5VH_UAU9HQIH6cEMWlUbHrz6wst2K0TZuPdhJoH3S6LwT0l0z30XpLaLIcMIkE_NHY1aFYg.FouKh_RcolXCBJrh.zW_jkkmY-N07BpmiSkg6D7ORVJN1NooeJwgdW4zEwW6_G31OXYkIGNsJjLZnI9_qsQDukrCgOgg3EqnuUwiWza-P0h33bAqlyfz4O3XQg6w5-3W5rsvE2qn251tbRXlDjMh-31BoCmXs4eg69REsdgBJBFxhCJRU8pwimDlW2g7f48ZpkeBy9WI5mMY1TEfBbq5G1K7jravGfETUoiDNq60p2lkqZULi26NWX4gK9hkaoDeDC4hJNFxN3DN3c1-yGq_Yf-8Q1jMhY1cOOc_1Y6YJVtzyc6aLG6Jb9Fl0Ug3BIGuyoM9dGHoE6an9pnyMuZtrbh3isFGmig0lD8TEN1L375ILvyR6lmNMO1Nj53Sg83luJc2Zow1zgjfF-3fQDM5kcaf7F5gw2trQZKZ7hXH5vM6HtFEuG2YMbPfHTCqLJLdnWaEKTIqQ38VCo3W-Re9FEf_bGYylRdaTCGmo2znhjG5GpuVXxb0gipEuhmoVD-j58SSCABkvFf7Zyyi5u3o1fsgFRXAQ0OA11nO65i_pD4SfIR8I-EVt4w79H7x4zk4df8LOb2MERTDSv_87ao1DKgEqQc2Qzo2fgON4giXLRW8ZuXD1hm7YJuWhzrjC-SBOCWUWN_bHCV5KNWjBzRY7UOeH2Rg1zhwa6yxnyadKX4rYRUV982RuvD9uh9IgddKmV5b3FBvJ4CdpfU-R-5TxFFSXGKvsYhIbJFXW8Z9BytaJzvQfQzcScUlIxWcuv0cBooE5Njh2_OzJVh-GLZu3aB1TQGOw8qGYbn_pp_CIi9cCFewURw-9jhF9BZF5UnYIwZGW2dqG076S5ijqbFhxlGYafn0juSWmM6IOS3MIH14RC01UeK7m5kqzL_fy-2NbxQrxG_fWfSU0H-Ji2HOBjyohyzc3cDeFsq0laHWN4obH5jvjkV5BwEMrGEtA14bc-ZY750omdgpP39ZPvO0SBuSH6PHuW-gXwhu81ZrqSYP5DwLSaXa1WajR7ERiyIhlc-GwHi5Ll2kSCw3qtZvnzf-6HqR0C-v0znR92xSmm3xaBugAvJoY8VAv_BLOJfxJBrxiJvf3krJ9s3O3YkV0gwYmDwB65ViOV-U_FKJjtPzIitAaohldbDgeuKc7YiLR2iOsFudlv7UQqwVAf7dGZMLz8ddeGOZQwYB0BnGNO38EpczwlshfP5aGSR82xVnK8WNMftyBInNemvFG_C83oMIoHf_J3O4EulPTZy8il0tuzp9ydhp_0yXIIRiK2_n9FQl4r5SkjV3DRdCHw16ugmZrpg38VNNwdLuDeBjY.tFxdf3uQgA3BGvqdHmfK9w","id_token":"eyJraWQiOiI0WmpGNDV1Mk1WaXBtYjZHXC9BM1ViWFdLWHp3UmYxSWNGMkx1XC9COWhUVEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4MzU4MTNmZS1hMGVhLTQ5ODItYjgwNS02YzdjN2VkMjhmZTQiLCJhdWQiOiIycmFtbHJzcTQ4bzEzMThsYWpmZ2EydGFvaSIsImV2ZW50X2lkIjoiMzNlNmM2NDAtMzliMi00M2E5LTg4NGItYjBlYWVjYzc5ODViIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MjgyMjMxNDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV9Zb0U5UFBHbVAiLCJjb2duaXRvOnVzZXJuYW1lIjoiZWt5YzAwMyIsImV4cCI6MTYyODIyNjc0MSwiaWF0IjoxNjI4MjIzMTQxfQ.AbcQ0Ez7HUotfgZCMilRgCIL93cil-BJK7YW5tFCD-NcWlFZGCzqLlFarxwKZW0GrqxQh9iXfIN0ouLalvsxIQkGwkw-nYTeZ3Fypq9h9Ix3aNMmFsSHCkYf1o7Wp3ZrIb1gXKsYHet06e_0S6bylyZn1nvTBR49o5eVbO8-vpTt7hzNF9D1PZ_pUIRQmAMiLilHhVscwbDekVLuTZP2MSrKo9wn1GQKdAT8ZrcL6jwDSSqXPrPV24NUa672m-JdOc5BsJaTD-EgEK6-RchGxRqRjmraKHQ0IXFwvzMgkbq0ln-7-oQco-wc9ztH9TyQ_1fUdb6huVB5KffR1P6fsQ","session_timeout":5}} 
+ </msg>
+<msg timestamp="20210806 11:12:21.758" level="INFO">c:\users\t640150\appdata\local\programs\python\python39\lib\site-packages\urllib3\connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'tablet-preprod.onlinebanking-partner-bottech.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20210806 11:12:21.758" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210806 11:12:18.528" endtime="20210806 11:12:21.758"/>
+</kw>
+<kw name="Request Should Be Successful" library="RequestsLibrary">
+<arg>response=${response}</arg>
+<doc>Fails if response status code is a client or server error (4xx, 5xx).</doc>
+<status status="PASS" starttime="20210806 11:12:21.758" endtime="20210806 11:12:21.772"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response.json()["status"]["message"]}</arg>
+<arg>${RESPONSE_MESSAGE_SUCCESS}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20210806 11:12:21.772" endtime="20210806 11:12:21.774"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${LOGIN_IDTOKEN}</arg>
+<arg>${response.json()["data"]["id_token"]}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:21.777" level="INFO">${LOGIN_IDTOKEN} = eyJraWQiOiI0WmpGNDV1Mk1WaXBtYjZHXC9BM1ViWFdLWHp3UmYxSWNGMkx1XC9COWhUVEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4MzU4MTNmZS1hMGVhLTQ5ODItYjgwNS02YzdjN2VkMjhmZTQiLCJhdWQiOiIycmFtbHJzcTQ4bzEzMThsYWpmZ2EydGFva...</msg>
+<status status="PASS" starttime="20210806 11:12:21.774" endtime="20210806 11:12:21.777"/>
+</kw>
+<status status="PASS" starttime="20210806 11:12:18.527" endtime="20210806 11:12:21.778"/>
+</kw>
+<status status="PASS" starttime="20210806 11:12:18.526" endtime="20210806 11:12:21.778"/>
+</kw>
+<test id="s1-t1" name="eKYC_Unhappy_002">
+<kw name="Get_term_and_conditions" library="Get_term_and_conditionAPI_page">
+<kw name="Set To Dictionary" library="Collections">
+<arg>${HEADER_GET_TERM}</arg>
+<arg>Authorization=${LOGIN_IDTOKEN}</arg>
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20210806 11:12:21.780" endtime="20210806 11:12:21.780"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${HEADER_GET_TERM}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210806 11:12:21.780" level="INFO">{'X-Correlation-Id': '123456789', 'partner-code': 'TCRB-TABLET', 'user': 'automate', 'Authorization': 'eyJraWQiOiI0WmpGNDV1Mk1WaXBtYjZHXC9BM1ViWFdLWHp3UmYxSWNGMkx1XC9COWhUVEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4MzU4MTNmZS1hMGVhLTQ5ODItYjgwNS02YzdjN2VkMjhmZTQiLCJhdWQiOiIycmFtbHJzcTQ4bzEzMThsYWpmZ2EydGFvaSIsImV2ZW50X2lkIjoiMzNlNmM2NDAtMzliMi00M2E5LTg4NGItYjBlYWVjYzc5ODViIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MjgyMjMxNDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV9Zb0U5UFBHbVAiLCJjb2duaXRvOnVzZXJuYW1lIjoiZWt5YzAwMyIsImV4cCI6MTYyODIyNjc0MSwiaWF0IjoxNjI4MjIzMTQxfQ.AbcQ0Ez7HUotfgZCMilRgCIL93cil-BJK7YW5tFCD-NcWlFZGCzqLlFarxwKZW0GrqxQh9iXfIN0ouLalvsxIQkGwkw-nYTeZ3Fypq9h9Ix3aNMmFsSHCkYf1o7Wp3ZrIb1gXKsYHet06e_0S6bylyZn1nvTBR49o5eVbO8-vpTt7hzNF9D1PZ_pUIRQmAMiLilHhVscwbDekVLuTZP2MSrKo9wn1GQKdAT8ZrcL6jwDSSqXPrPV24NUa672m-JdOc5BsJaTD-EgEK6-RchGxRqRjmraKHQ0IXFwvzMgkbq0ln-7-oQco-wc9ztH9TyQ_1fUdb6huVB5KffR1P6fsQ'}</msg>
+<status status="PASS" starttime="20210806 11:12:21.780" endtime="20210806 11:12:21.780"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URL_CORE_SERVICE}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210806 11:12:21.781" level="INFO">Creating Session using : alias=eKYC, url=https://tablet-preprod.onlinebanking-partner-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210806 11:12:21.780" endtime="20210806 11:12:21.781"/>
+</kw>
+<kw name="Get On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_GET_TERM_AND_CONDITION}</arg>
+<arg>headers=&amp;{HEADER_GET_TERM}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20210806 11:12:22.692" level="INFO">GET Request : url=https://tablet-preprod.onlinebanking-partner-bottech.com/tcrb-platform-kyc/v1/get_term_condition 
+ path_url=/tcrb-platform-kyc/v1/get_term_condition 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Correlation-Id': '123456789', 'partner-code': 'TCRB-TABLET', 'user': 'automate', 'Authorization': 'eyJraWQiOiI0WmpGNDV1Mk1WaXBtYjZHXC9BM1ViWFdLWHp3UmYxSWNGMkx1XC9COWhUVEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4MzU4MTNmZS1hMGVhLTQ5ODItYjgwNS02YzdjN2VkMjhmZTQiLCJhdWQiOiIycmFtbHJzcTQ4bzEzMThsYWpmZ2EydGFvaSIsImV2ZW50X2lkIjoiMzNlNmM2NDAtMzliMi00M2E5LTg4NGItYjBlYWVjYzc5ODViIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MjgyMjMxNDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV9Zb0U5UFBHbVAiLCJjb2duaXRvOnVzZXJuYW1lIjoiZWt5YzAwMyIsImV4cCI6MTYyODIyNjc0MSwiaWF0IjoxNjI4MjIzMTQxfQ.AbcQ0Ez7HUotfgZCMilRgCIL93cil-BJK7YW5tFCD-NcWlFZGCzqLlFarxwKZW0GrqxQh9iXfIN0ouLalvsxIQkGwkw-nYTeZ3Fypq9h9Ix3aNMmFsSHCkYf1o7Wp3ZrIb1gXKsYHet06e_0S6bylyZn1nvTBR49o5eVbO8-vpTt7hzNF9D1PZ_pUIRQmAMiLilHhVscwbDekVLuTZP2MSrKo9wn1GQKdAT8ZrcL6jwDSSqXPrPV24NUa672m-JdOc5BsJaTD-EgEK6-RchGxRqRjmraKHQ0IXFwvzMgkbq0ln-7-oQco-wc9ztH9TyQ_1fUdb6huVB5KffR1P6fsQ'} 
+ body=None 
+ </msg>
+<msg timestamp="20210806 11:12:22.692" level="INFO">GET Response : url=https://tablet-preprod.onlinebanking-partner-bottech.com/tcrb-platform-kyc/v1/get_term_condition 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json', 'Content-Length': '1007', 'Connection': 'keep-alive', 'Date': 'Fri, 06 Aug 2021 04:12:22 GMT', 'x-amzn-RequestId': '680b8a5b-45c6-4a58-8890-2faf6f19a1d7', 'x-amz-apigw-id': 'DoF59GE9yQ0FvoA=', 'X-Amzn-Trace-Id': 'Root=1-610cb6a5-222cb39d0c13962d73f4ecd8', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 cdb1e71cf1af99880e3fdedaccac5874.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'KUL50-C1', 'X-Amz-Cf-Id': 'Uxo3CyKNqxus1RId5Ajbyt7lqm4fUoFD-BOwXpuR_OEHBlBP30bZSg=='} 
+ body={"status":{"code":"0","message":"Success","remark":null,"user_code":null,"user_message_en":null,"user_message_th":null},"data":{"purpose_id":"TC0001","purpose_name":"Example KYC term and condition","type":"T","content":"Example KYC term and condition content.\r\nTest terms and conditions are vital to the long-term success and security of your online business, as they outline the rules by which you and your users must abide. Without terms, you could be subject to abusive users, intellectual property theft, and unnecessary litigation.\r\nOur free terms and conditions template will help provide your business with the legal protection it deserves. Download the standard template below, or simply copy and paste the text onto your site.\r\nAlternatively, keep reading to learn more about what a terms and conditions agreement is and how to start writing your own.","econsent_version":"1.0","econsent_status":"ACTIVE","onetrust_version":null,"onetrust_status":null,"effective_date":"2021-03-02 17:00:00"}} 
+ </msg>
+<msg timestamp="20210806 11:12:22.692" level="INFO">c:\users\t640150\appdata\local\programs\python\python39\lib\site-packages\urllib3\connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'tablet-preprod.onlinebanking-partner-bottech.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20210806 11:12:22.692" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210806 11:12:21.781" endtime="20210806 11:12:22.692"/>
+</kw>
+<kw name="Request Should Be Successful" library="RequestsLibrary">
+<arg>response=${response}</arg>
+<doc>Fails if response status code is a client or server error (4xx, 5xx).</doc>
+<status status="PASS" starttime="20210806 11:12:22.692" endtime="20210806 11:12:22.699"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.json()["status"]["code"]}</arg>
+<arg>${RESPONSE_CODE_SUCCESS}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" starttime="20210806 11:12:22.699" endtime="20210806 11:12:22.700"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response.json()["status"]["message"]}</arg>
+<arg>${RESPONSE_MESSAGE_SUCCESS}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20210806 11:12:22.700" endtime="20210806 11:12:22.701"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${GETTERM_RESPONES_MESSAGE}</arg>
+<arg>${response.json()["status"]["message"]}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.705" level="INFO">${GETTERM_RESPONES_MESSAGE} = Success</msg>
+<status status="PASS" starttime="20210806 11:12:22.702" endtime="20210806 11:12:22.705"/>
+</kw>
+<status status="PASS" starttime="20210806 11:12:21.779" endtime="20210806 11:12:22.705"/>
+</kw>
+<kw name="Validate_customer_Not_Found_Mobile_Number" library="validate_customer_API_page">
+<arg>5</arg>
+<kw name="Set To Dictionary" library="Collections">
+<arg>${HEADER_CS_VALIDATE}</arg>
+<arg>Authorization=${LOGIN_IDTOKEN}</arg>
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20210806 11:12:22.706" endtime="20210806 11:12:22.707"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${HEADER_CS_VALIDATE}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20210806 11:12:22.707" level="INFO">{'X-Correlation-Id': 'qwtge40453df', 'Content-Type': 'application/json', 'user': 'automate', 'Partner-code': 'TCRB-TABLET', 'Authorization': 'eyJraWQiOiI0WmpGNDV1Mk1WaXBtYjZHXC9BM1ViWFdLWHp3UmYxSWNGMkx1XC9COWhUVEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4MzU4MTNmZS1hMGVhLTQ5ODItYjgwNS02YzdjN2VkMjhmZTQiLCJhdWQiOiIycmFtbHJzcTQ4bzEzMThsYWpmZ2EydGFvaSIsImV2ZW50X2lkIjoiMzNlNmM2NDAtMzliMi00M2E5LTg4NGItYjBlYWVjYzc5ODViIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MjgyMjMxNDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV9Zb0U5UFBHbVAiLCJjb2duaXRvOnVzZXJuYW1lIjoiZWt5YzAwMyIsImV4cCI6MTYyODIyNjc0MSwiaWF0IjoxNjI4MjIzMTQxfQ.AbcQ0Ez7HUotfgZCMilRgCIL93cil-BJK7YW5tFCD-NcWlFZGCzqLlFarxwKZW0GrqxQh9iXfIN0ouLalvsxIQkGwkw-nYTeZ3Fypq9h9Ix3aNMmFsSHCkYf1o7Wp3ZrIb1gXKsYHet06e_0S6bylyZn1nvTBR49o5eVbO8-vpTt7hzNF9D1PZ_pUIRQmAMiLilHhVscwbDekVLuTZP2MSrKo9wn1GQKdAT8ZrcL6jwDSSqXPrPV24NUa672m-JdOc5BsJaTD-EgEK6-RchGxRqRjmraKHQ0IXFwvzMgkbq0ln-7-oQco-wc9ztH9TyQ_1fUdb6huVB5KffR1P6fsQ'}</msg>
+<status status="PASS" starttime="20210806 11:12:22.707" endtime="20210806 11:12:22.707"/>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URL_CORE_SERVICE}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20210806 11:12:22.708" level="INFO">Creating Session using : alias=eKYC, url=https://tablet-preprod.onlinebanking-partner-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20210806 11:12:22.708" endtime="20210806 11:12:22.708"/>
+</kw>
+<kw name="Get_Data_Customer_UnHappyCase" library="Get_data_excel">
+<arg>${row_in_excel}</arg>
+<kw name="Open Excel Document" library="ExcelLibrary">
+<arg>filename=${FILE_NAME}</arg>
+<arg>doc_id=doc1</arg>
+<doc>Opens xlsx document file.</doc>
+<status status="PASS" starttime="20210806 11:12:22.709" endtime="20210806 11:12:22.887"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${get_cid}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=4</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.887" level="INFO">${get_cid} = 3100501701579</msg>
+<status status="PASS" starttime="20210806 11:12:22.887" endtime="20210806 11:12:22.887"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${name}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=5</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.887" level="INFO">${name} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.887" endtime="20210806 11:12:22.887"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${surname}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=6</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.887" level="INFO">${surname} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.887" endtime="20210806 11:12:22.887"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${name_en}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=7</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.903" level="INFO">${name_en} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.887" endtime="20210806 11:12:22.903"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${surname_en}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=8</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.903" level="INFO">${surname_en} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.903" endtime="20210806 11:12:22.903"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${bithdate}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=9</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.903" level="INFO">${bithdate} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.903" endtime="20210806 11:12:22.903"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${alley}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=14</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${alley} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${get_mobile}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=10</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${get_mobile} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Read Excel Cell" library="ExcelLibrary">
+<var>${get_lasercode}</var>
+<arg>row_num=${row}</arg>
+<arg>col_num=11</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Returns content of a cell.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${get_lasercode} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${GET_CID}</arg>
+<arg>${get_cid}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${GET_CID} = 3100501701579</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${FIRST_NAME}</arg>
+<arg>${name}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${FIRST_NAME} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${SURNAME}</arg>
+<arg>${surname}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${SURNAME} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${FIRST_NAME_EN}</arg>
+<arg>${name_en}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${FIRST_NAME_EN} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${SURNAME_EN}</arg>
+<arg>${surname_en}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${SURNAME_EN} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${BIRTH_DATE}</arg>
+<arg>${bithdate}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${BIRTH_DATE} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${GET_MOBILE}</arg>
+<arg>${get_mobile}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${GET_MOBILE} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${GET_LASER_CODE}</arg>
+<arg>${get_lasercode}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:22.904" level="INFO">${GET_LASER_CODE} = None</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="Close All Excel Documents" library="ExcelLibrary">
+<doc>Closes all opened documents.</doc>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.904"/>
+</kw>
+<status status="PASS" starttime="20210806 11:12:22.708" endtime="20210806 11:12:22.904"/>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<var>${body}</var>
+<arg>{ "agent_id": 630792, "agent_name": "QA Unhappy", "alley": "", "birth_date": "04-07-2527", "cid": "${GET_CID}", "date_of_issue": "29-07-2563", "device_name": "samsung/P355", "district": "อำเภอบางกรวย", "expired_date": "03-07-2572", "first_name_en": "Piman", "first_name_th": "พิมาน", "house_no": "199/19", "issue_by": "บางกรวย/นนทบุรี", "lane": "", "last_name_en": "Tanyaluk", "last_name_th": "ตันยาลักษณ์", "latitude": 100.123, "longitude": 90.456, "middle_name_en": "", "middle_name_th": "", "moo": 5, "province": "กรุงเทพมหานคร", "request_no": 123456789, "road": "", "sex": "ชาย", "sub_district": "บางสีทอง", "title_en": "Mr.", "title_th": "นาย", "img": "XX"}</arg>
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<msg timestamp="20210806 11:12:22.904" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20210806 11:12:22.916" level="INFO">To JSON using : content={ "agent_id": 630792, "agent_name": "QA Unhappy", "alley": "", "birth_date": "04-07-2527", "cid": "3100501701579", "date_of_issue": "29-07-2563", "device_name": "samsung/P355", "district": "อำเภอบางกรวย", "expired_date": "03-07-2572", "first_name_en": "Piman", "first_name_th": "พิมาน", "house_no": "199/19", "issue_by": "บางกรวย/นนทบุรี", "lane": "", "last_name_en": "Tanyaluk", "last_name_th": "ตันยาลักษณ์", "latitude": 100.123, "longitude": 90.456, "middle_name_en": "", "middle_name_th": "", "moo": 5, "province": "กรุงเทพมหานคร", "request_no": 123456789, "road": "", "sex": "ชาย", "sub_district": "บางสีทอง", "title_en": "Mr.", "title_th": "นาย", "img": "XX"} </msg>
+<msg timestamp="20210806 11:12:22.916" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20210806 11:12:22.916" level="INFO">${body} = {'agent_id': 630792, 'agent_name': 'QA Unhappy', 'alley': '', 'birth_date': '04-07-2527', 'cid': '3100501701579', 'date_of_issue': '29-07-2563', 'device_name': 'samsung/P355', 'district': 'อำเภอบางกรว...</msg>
+<status status="PASS" starttime="20210806 11:12:22.904" endtime="20210806 11:12:22.916"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_POST_VALIDATE_CUSTOMER}</arg>
+<arg>headers=&amp;{HEADER_CS_VALIDATE}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20210806 11:12:24.589" level="INFO">POST Request : url=https://tablet-preprod.onlinebanking-partner-bottech.com/tcrb-platform-kyc/v1/validate_customer 
+ path_url=/tcrb-platform-kyc/v1/validate_customer 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Correlation-Id': 'qwtge40453df', 'Content-Type': 'application/json', 'user': 'automate', 'Partner-code': 'TCRB-TABLET', 'Authorization': 'eyJraWQiOiI0WmpGNDV1Mk1WaXBtYjZHXC9BM1ViWFdLWHp3UmYxSWNGMkx1XC9COWhUVEU9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI4MzU4MTNmZS1hMGVhLTQ5ODItYjgwNS02YzdjN2VkMjhmZTQiLCJhdWQiOiIycmFtbHJzcTQ4bzEzMThsYWpmZ2EydGFvaSIsImV2ZW50X2lkIjoiMzNlNmM2NDAtMzliMi00M2E5LTg4NGItYjBlYWVjYzc5ODViIiwidG9rZW5fdXNlIjoiaWQiLCJhdXRoX3RpbWUiOjE2MjgyMjMxNDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5hcC1zb3V0aGVhc3QtMS5hbWF6b25hd3MuY29tXC9hcC1zb3V0aGVhc3QtMV9Zb0U5UFBHbVAiLCJjb2duaXRvOnVzZXJuYW1lIjoiZWt5YzAwMyIsImV4cCI6MTYyODIyNjc0MSwiaWF0IjoxNjI4MjIzMTQxfQ.AbcQ0Ez7HUotfgZCMilRgCIL93cil-BJK7YW5tFCD-NcWlFZGCzqLlFarxwKZW0GrqxQh9iXfIN0ouLalvsxIQkGwkw-nYTeZ3Fypq9h9Ix3aNMmFsSHCkYf1o7Wp3ZrIb1gXKsYHet06e_0S6bylyZn1nvTBR49o5eVbO8-vpTt7hzNF9D1PZ_pUIRQmAMiLilHhVscwbDekVLuTZP2MSrKo9wn1GQKdAT8ZrcL6jwDSSqXPrPV24NUa672m-JdOc5BsJaTD-EgEK6-RchGxRqRjmraKHQ0IXFwvzMgkbq0ln-7-oQco-wc9ztH9TyQ_1fUdb6huVB5KffR1P6fsQ', 'Content-Length': '1009'} 
+ body=b'{"agent_id": 630792, "agent_name": "QA Unhappy", "alley": "", "birth_date": "04-07-2527", "cid": "3100501701579", "date_of_issue": "29-07-2563", "device_name": "samsung/P355", "district": "\\u0e2d\\u0e33\\u0e40\\u0e20\\u0e2d\\u0e1a\\u0e32\\u0e07\\u0e01\\u0e23\\u0e27\\u0e22", "expired_date": "03-07-2572", "first_name_en": "Piman", "first_name_th": "\\u0e1e\\u0e34\\u0e21\\u0e32\\u0e19", "house_no": "199/19", "issue_by": "\\u0e1a\\u0e32\\u0e07\\u0e01\\u0e23\\u0e27\\u0e22/\\u0e19\\u0e19\\u0e17\\u0e1a\\u0e38\\u0e23\\u0e35", "lane": "", "last_name_en": "Tanyaluk", "last_name_th": "\\u0e15\\u0e31\\u0e19\\u0e22\\u0e32\\u0e25\\u0e31\\u0e01\\u0e29\\u0e13\\u0e4c", "latitude": 100.123, "longitude": 90.456, "middle_name_en": "", "middle_name_th": "", "moo": 5, "province": "\\u0e01\\u0e23\\u0e38\\u0e07\\u0e40\\u0e17\\u0e1e\\u0e21\\u0e2b\\u0e32\\u0e19\\u0e04\\u0e23", "request_no": 123456789, "road": "", "sex": "\\u0e0a\\u0e32\\u0e22", "sub_district": "\\u0e1a\\u0e32\\u0e07\\u0e2a\\u0e35\\u0e17\\u0e2d\\u0e07", "title_en": "Mr.", "title_th": "\\u0e19\\u0e32\\u0e22", "img": "XX"}' 
+ </msg>
+<msg timestamp="20210806 11:12:24.590" level="INFO">POST Response : url=https://tablet-preprod.onlinebanking-partner-bottech.com/tcrb-platform-kyc/v1/validate_customer 
+ status=200, reason=OK 
+ headers={'Content-Type': 'application/json', 'Content-Length': '861', 'Connection': 'keep-alive', 'Date': 'Fri, 06 Aug 2021 04:12:24 GMT', 'x-amzn-RequestId': 'b0266d7d-a0de-457b-9fee-d9c7f28726a1', 'x-amz-apigw-id': 'DoF6IHVTyQ0FXEQ=', 'X-Amzn-Trace-Id': 'Root=1-610cb6a7-42493281594484f84b1be121', 'X-Cache': 'Miss from cloudfront', 'Via': '1.1 38d2ae78a3305cd2b6db3227da715396.cloudfront.net (CloudFront)', 'X-Amz-Cf-Pop': 'KUL50-C1', 'X-Amz-Cf-Id': 'jCGYwSECZZLs5iTfr-51MHTpa4FvH1d9w-phjyHqbd-d1FVgfBZKJQ=='} 
+ body={"status":{"code":"1006","message":"Mobile number not found","remark":"","user_code":"E0002","user_message_en":"Mobile number does not exist\n\nWe are unable to process since this customer did not register mobile number with TCRB.\n\nKindly visited nearest branch for registered.","user_message_th":"ไม่พบหมายเลขโทรศัพท์มือถือ\n\nระบบไม่สามารถดำเนินการต่อได้ เนื่องจากลูกค้าไม่ได้ลงทะเบียนหมายเลขโทรศัพท์มือถือไว้กับทางธนาคาร\n\nกรุณาติดต่อสาขาของธนาคารเพื่อลงทะเบียนหมายเลขโทรศัพท์มือถือ"},"data":null} 
+ </msg>
+<msg timestamp="20210806 11:12:24.590" level="INFO">c:\users\t640150\appdata\local\programs\python\python39\lib\site-packages\urllib3\connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'tablet-preprod.onlinebanking-partner-bottech.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20210806 11:12:24.591" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20210806 11:12:22.916" endtime="20210806 11:12:24.591"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${response.json()["status"]["code"]}</arg>
+<arg>1006</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" starttime="20210806 11:12:24.591" endtime="20210806 11:12:24.592"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${ERROR_VALIDATE}</arg>
+<arg>${response.json()["status"]["message"]}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<msg timestamp="20210806 11:12:24.596" level="INFO">${ERROR_VALIDATE} = Mobile number not found</msg>
+<status status="PASS" starttime="20210806 11:12:24.592" endtime="20210806 11:12:24.596"/>
+</kw>
+<status status="PASS" starttime="20210806 11:12:22.706" endtime="20210806 11:12:24.596"/>
+</kw>
+<kw name="Save_Unhappy_Validate_Customer_API" library="save_data_excel_page" type="TEARDOWN">
+<arg>5</arg>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<var>${ignore}</var>
+<arg>Save_Final_result_UNHAPPY_PASS_FAIL_VALIDATE_CUSTOMER</arg>
+<arg>${abc}</arg>
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<kw name="Save_Final_result_UNHAPPY_PASS_FAIL_VALIDATE_CUSTOMER" library="save_data_excel_page">
+<arg>${abc}</arg>
+<kw name="Open Excel Document" library="ExcelLibrary">
+<arg>filename=${FILE_NAME}</arg>
+<arg>doc_id=doc2</arg>
+<doc>Opens xlsx document file.</doc>
+<status status="PASS" starttime="20210806 11:12:24.596" endtime="20210806 11:12:24.778"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>row_num=${row}</arg>
+<arg>col_num=17</arg>
+<arg>value=${ERROR_VALIDATE}</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Writes value to the cell.</doc>
+<status status="PASS" starttime="20210806 11:12:24.778" endtime="20210806 11:12:24.778"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>row_num=${row}</arg>
+<arg>col_num=25</arg>
+<arg>value=${TEST STATUS}</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Writes value to the cell.</doc>
+<status status="PASS" starttime="20210806 11:12:24.778" endtime="20210806 11:12:24.778"/>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<arg>row_num=${row}</arg>
+<arg>col_num=18</arg>
+<arg>value=${GETTERM_RESPONES_MESSAGE}</arg>
+<arg>sheet_name=eKYC-UNHAPPY</arg>
+<doc>Writes value to the cell.</doc>
+<status status="PASS" starttime="20210806 11:12:24.778" endtime="20210806 11:12:24.778"/>
+</kw>
+<kw name="Save Excel Document" library="ExcelLibrary">
+<arg>filename=${FILE_NAME}</arg>
+<doc>Saves the current document to disk.</doc>
+<status status="PASS" starttime="20210806 11:12:24.778" endtime="20210806 11:12:24.997"/>
+</kw>
+<kw name="Close All Excel Documents" library="ExcelLibrary">
+<doc>Closes all opened documents.</doc>
+<status status="PASS" starttime="20210806 11:12:24.997" endtime="20210806 11:12:24.997"/>
+</kw>
+<status status="PASS" starttime="20210806 11:12:24.596" endtime="20210806 11:12:24.997"/>
+</kw>
+<msg timestamp="20210806 11:12:24.997" level="INFO">${ignore} = ('PASS', None)</msg>
+<status status="PASS" starttime="20210806 11:12:24.596" endtime="20210806 11:12:24.997"/>
+</kw>
+<status status="PASS" starttime="20210806 11:12:24.596" endtime="20210806 11:12:24.997"/>
+</kw>
+<doc>Validate_Customer ||Not Found Number ระบบ สามารถ detect ID Card ได้ แต่ไม่พบเบอร์ของลูกค้า</doc>
+<status status="PASS" starttime="20210806 11:12:21.778" endtime="20210806 11:12:25.012"/>
+</test>
+<status status="PASS" starttime="20210806 11:12:17.766" endtime="20210806 11:12:25.014"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="02 KYC Unhappy API">02 KYC Unhappy API</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20210806 11:12:18.527" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20210806 11:12:22.904" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+</errors>
+</robot>

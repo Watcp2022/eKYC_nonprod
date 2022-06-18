@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.0 (Python 3.9.2 on win32)" generated="20220113 10:55:59.365" rpa="false" schemaversion="2">
+<suite id="s1" name="16.QR journey" source="C:\Users\T640150\Desktop\eKYC\api-ekyc\Test case\16.QR_journey.robot">
+<kw name="Start Project" library="Main" type="SETUP">
+<kw name="Login_Get_Token" library="Login_api_page">
+<kw name="Create Session" library="RequestsLibrary">
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URL_CORE_SERVICE}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220113 10:56:00.832" level="INFO">Creating Session using : alias=eKYC, url=https://tablet.onlinebanking-partner-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220113 10:56:00.831" endtime="20220113 10:56:00.832"/>
+</kw>
+<kw name="To Json" library="RequestsLibrary">
+<var>${body}</var>
+<arg>{"username": "EKYC003", "password": "P@ssw0rd", "partner_code": "TCRB-TABLET"}</arg>
+<doc>*DEPRECATED* Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</doc>
+<msg timestamp="20220113 10:56:00.833" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220113 10:56:00.833" level="INFO">To JSON using : content={"username": "EKYC003", "password": "P@ssw0rd", "partner_code": "TCRB-TABLET"} </msg>
+<msg timestamp="20220113 10:56:00.833" level="INFO">To JSON using : pretty_print=False </msg>
+<msg timestamp="20220113 10:56:00.834" level="INFO">${body} = {'username': 'EKYC003', 'password': 'P@ssw0rd', 'partner_code': 'TCRB-TABLET'}</msg>
+<status status="PASS" starttime="20220113 10:56:00.832" endtime="20220113 10:56:00.834"/>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<var>${response}</var>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_LOGIN}</arg>
+<arg>headers=&amp;{HEADER_LOGIN}</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<msg timestamp="20220113 10:56:00.883" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)'))': /tcrb-platform-kyc/v1/login</msg>
+<msg timestamp="20220113 10:56:01.113" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)'))': /tcrb-platform-kyc/v1/login</msg>
+<msg timestamp="20220113 10:56:01.534" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)'))': /tcrb-platform-kyc/v1/login</msg>
+<msg timestamp="20220113 10:56:01.560" level="FAIL">SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</msg>
+<status status="FAIL" starttime="20220113 10:56:00.834" endtime="20220113 10:56:01.560"/>
+</kw>
+<kw name="Request Should Be Successful" library="RequestsLibrary">
+<arg>response=${response}</arg>
+<doc>Fails if response status code is a client or server error (4xx, 5xx).</doc>
+<status status="NOT RUN" starttime="20220113 10:56:01.560" endtime="20220113 10:56:01.560"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${response.json()["status"]["message"]}</arg>
+<arg>${RESPONSE_MESSAGE_SUCCESS}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="NOT RUN" starttime="20220113 10:56:01.560" endtime="20220113 10:56:01.560"/>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<arg>${LOGIN_IDTOKEN}</arg>
+<arg>${response.json()["data"]["id_token"]}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="NOT RUN" starttime="20220113 10:56:01.560" endtime="20220113 10:56:01.561"/>
+</kw>
+<status status="FAIL" starttime="20220113 10:56:00.817" endtime="20220113 10:56:01.561"/>
+</kw>
+<status status="FAIL" starttime="20220113 10:56:00.817" endtime="20220113 10:56:01.561"/>
+</kw>
+<test id="s1-t1" name="QR_journey_1">
+<doc>ทดสอบระบบ api-Login กรณี Login สำเร็จในครั้งแรก</doc>
+<status status="FAIL" starttime="20220113 10:56:01.561" endtime="20220113 10:56:01.562">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t2" name="QR_journey_2">
+<doc>ทดสอบระบบ api-Login กรณี Login ไม่สำเร็จ ด้วย User และ Password ที่ไม่ถูกต้อง</doc>
+<status status="FAIL" starttime="20220113 10:56:01.563" endtime="20220113 10:56:01.565">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t3" name="QR_journey_3">
+<doc>ทดสอบระบบ api-Login กรณี Login ไม่สำเร็จ ด้วย User และ Password ที่ไม่ถูกต้อง 3 ครั้ง</doc>
+<status status="FAIL" starttime="20220113 10:56:01.566" endtime="20220113 10:56:01.567">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t4" name="QR_journey_4">
+<doc>ทดสอบระบบ api-Login กรณี Login ไม่สำเร็จ ด้วย User และ Password ที่ไม่ถูกต้อง 4 ครั้ง</doc>
+<status status="FAIL" starttime="20220113 10:56:01.568" endtime="20220113 10:56:01.570">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t5" name="QR_journey_5">
+<doc>ทดสอบระบบ api-QR Code กรณี scan ผ่านในครั้งแรก</doc>
+<status status="FAIL" starttime="20220113 10:56:01.571" endtime="20220113 10:56:01.572">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t6" name="QR_journey_6">
+<doc>ทดสอบระบบ api-QR Code กรณี Scan QR code ที่มาจากระบบอื่นๆ</doc>
+<status status="FAIL" starttime="20220113 10:56:01.572" endtime="20220113 10:56:01.573">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t7" name="QR_journey_7">
+<doc>ทดสอบระบบ api-QR Code กรณี Scan QR code ที่ถูกต้องแต่หมดอายุ</doc>
+<status status="FAIL" starttime="20220113 10:56:01.574" endtime="20220113 10:56:01.575">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t8" name="QR_journey_8">
+<doc>ทดสอบระบบ api-QR Code กรณีส่ง Request api qr string ไม่ครบ</doc>
+<status status="FAIL" starttime="20220113 10:56:01.577" endtime="20220113 10:56:01.578">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t9" name="QR_journey_9">
+<doc>ทดสอบระบบ api-QR Code กรณีrequest โดยไม่มี auth.</doc>
+<status status="FAIL" starttime="20220113 10:56:01.579" endtime="20220113 10:56:01.579">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t10" name="QR_journey_10">
+<doc>ทดสอบระบบ api-Term and conditions กรณี กด Agree term เพื่อผ่านไปหน้าถัดไป</doc>
+<status status="FAIL" starttime="20220113 10:56:01.581" endtime="20220113 10:56:01.582">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t11" name="QR_journey_11">
+<doc>ทดสอบระบบ api-Term and conditions กรณี กด Disagree เพื่อยกเลิกการทำรายการ</doc>
+<status status="FAIL" starttime="20220113 10:56:01.583" endtime="20220113 10:56:01.584">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t12" name="QR_journey_12">
+<doc>ทดสอบระบบ api-Term and conditions กรณี ส่งค่าว่างที่ accecpt field</doc>
+<status status="FAIL" starttime="20220113 10:56:01.585" endtime="20220113 10:56:01.586">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t13" name="QR_journey_13">
+<doc>ทดสอบระบบ api-Term and conditions กรณี ส่งค่าอื่นๆที่ไม่ใช่ True / false ที่ accept field</doc>
+<status status="FAIL" starttime="20220113 10:56:01.587" endtime="20220113 10:56:01.589">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t14" name="QR_journey_14">
+<doc>ทดสอบระบบ api-Term and conditions กรณีrequest โดยไม่มี auth.</doc>
+<status status="FAIL" starttime="20220113 10:56:01.590" endtime="20220113 10:56:01.591">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t15" name="QR_journey_15">
+<doc>ทดสอบระบบ api-Validate Customer กรณีลูกค้า Dipchip ด้วยบัตรประชาชนที่ถูกต้อง และเป็นลูกค้าของธนาคาร</doc>
+<status status="FAIL" starttime="20220113 10:56:01.593" endtime="20220113 10:56:01.595">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t16" name="QR_journey_16">
+<doc>ทดสอบระบบ api-Validate Customer กรณีลูกค้า Dipchip ด้วยบัตรประชาชนที่ถูกต้อง แต่ไม่ได้เป็นลูกค้าของธนาคาร</doc>
+<status status="FAIL" starttime="20220113 10:56:01.596" endtime="20220113 10:56:01.598">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t17" name="QR_journey_17">
+<doc>ทดสอบระบบ api-Validate Customer กรณี ส่งค่าว่างที่ Request cid field</doc>
+<status status="FAIL" starttime="20220113 10:56:01.599" endtime="20220113 10:56:01.600">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t18" name="QR_journey_18">
+<doc>ทดสอบระบบ api-Validate Customer กรณีrequest โดยไม่มี auth.</doc>
+<status status="FAIL" starttime="20220113 10:56:01.601" endtime="20220113 10:56:01.602">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t19" name="QR_journey_19">
+<doc>ทดสอบระบบ api-DOPA กรณี ลูกค้ากรอก Laser Code ทีถูกต้อง</doc>
+<status status="FAIL" starttime="20220113 10:56:01.603" endtime="20220113 10:56:01.605">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t20" name="QR_journey_20">
+<doc>ทดสอบระบบ api-DOPA กรณี ลูกค้ากรอก Laser Code ไม่ถูกต้อง</doc>
+<status status="FAIL" starttime="20220113 10:56:01.606" endtime="20220113 10:56:01.608">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t21" name="QR_journey_21">
+<doc>ทดสอบระบบ api-DOPA กรณี ส่ง Request ค่า Laser code ไม่ครบจำนวน</doc>
+<status status="FAIL" starttime="20220113 10:56:01.609" endtime="20220113 10:56:01.611">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t22" name="QR_journey_22">
+<doc>ทดสอบระบบ api-Validate Customer กรณีrequest โดยไม่มี auth</doc>
+<status status="FAIL" starttime="20220113 10:56:01.611" endtime="20220113 10:56:01.613">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t23" name="QR_journey_23">
+<doc>ทดสอบระบบ api-Facial กรณีลูกค้าถ่ายภาพผ่านในครั้งแรก</doc>
+<status status="FAIL" starttime="20220113 10:56:01.613" endtime="20220113 10:56:01.615">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t24" name="QR_journey_24">
+<doc>ทดสอบระบบ api-Facialกรณีลูกค้าถ่ายภาพ ไม่ผ่านในครั้งแรก (Liveness fail)</doc>
+<status status="FAIL" starttime="20220113 10:56:01.617" endtime="20220113 10:56:01.618">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t25" name="QR_journey_25">
+<doc>ทดสอบระบบ api-Facial กรณีลูกค้าถ่ายภาพ ไม่ผ่าน 3 ครั้ง (Liveness fail)</doc>
+<status status="FAIL" starttime="20220113 10:56:01.621" endtime="20220113 10:56:01.622">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t26" name="QR_journey_26">
+<doc>ทดสอบระบบ api-Facial กรณีลูกค้าถ่ายภาพ ไม่ผ่าน 4 ครั้ง (Liveness fail)</doc>
+<status status="FAIL" starttime="20220113 10:56:01.623" endtime="20220113 10:56:01.625">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t27" name="QR_journey_27">
+<doc>ทดสอบระบบ api-Facial กรณีลูกค้าถ่ายภาพผ่าน แต่ภาพไม่ตรงกับบัตรประชาชน ครั้ง แรก (Facial fail)</doc>
+<status status="FAIL" starttime="20220113 10:56:01.626" endtime="20220113 10:56:01.628">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t28" name="QR_journey_28">
+<doc>ทดสอบระบบ api-Facial กรณีลูกค้าถ่ายภาพผ่าน แต่ภาพไม่ตรงกับบัตรประชาชน ทั้งหมด 3 ครั้ง (Facial fail)</doc>
+<status status="FAIL" starttime="20220113 10:56:01.630" endtime="20220113 10:56:01.632">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t29" name="QR_journey_29">
+<doc>ทดสอบระบบ api-Facial กรณีลูกค้าถ่ายภาพผ่าน แต่ภาพไม่ตรงกับบัตรประชาชน ทั้งหมด 4 ครั้ง(Facial fail)</doc>
+<status status="FAIL" starttime="20220113 10:56:01.633" endtime="20220113 10:56:01.635">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t30" name="QR_journey_30">
+<doc>ทดสอบระบบ api-Facial กรณี ใส่ค่าว่างที่ image_source ในตอน request</doc>
+<status status="FAIL" starttime="20220113 10:56:01.636" endtime="20220113 10:56:01.637">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<test id="s1-t31" name="QR_journey_31">
+<doc>ทดสอบระบบ api-Facial กรณีrequest โดยไม่มี auth</doc>
+<status status="FAIL" starttime="20220113 10:56:01.638" endtime="20220113 10:56:01.639">Parent suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</test>
+<status status="FAIL" starttime="20220113 10:55:59.380" endtime="20220113 10:56:01.641">Suite setup failed:
+SSLError: HTTPSConnectionPool(host='tablet.onlinebanking-partner-bottech.com', port=443): Max retries exceeded with url: /tcrb-platform-kyc/v1/login (Caused by SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)')))</status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="31" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="31" skip="0" id="s1" name="16.QR journey">16.QR journey</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220113 10:56:00.833" level="WARN">Keyword 'RequestsLibrary.To Json' is deprecated. Please use ${resp.json()} instead. Have a look at the improved HTML output as pretty printing replacement.</msg>
+<msg timestamp="20220113 10:56:00.883" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)'))': /tcrb-platform-kyc/v1/login</msg>
+<msg timestamp="20220113 10:56:01.113" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)'))': /tcrb-platform-kyc/v1/login</msg>
+<msg timestamp="20220113 10:56:01.534" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLError(1, '[SSL: WRONG_VERSION_NUMBER] wrong version number (_ssl.c:1123)'))': /tcrb-platform-kyc/v1/login</msg>
+</errors>
+</robot>
