@@ -15,13 +15,13 @@ ${PATH_JAR_CS}          tcrb-ekyc-partner-1.7.jar
 
 ***Keywords***
 Validate_Sign_up_CS
-    [Arguments]         ${row}
+    [Arguments]         ${row}         ${qr_string}
     Generate_Partner_Secret_CS
     Set To Dictionary                       ${HEADER_COUNTER_SERVICE}      partner-secret=${GET_PARTNER_SECRET_CS}
     Get_data_excel.Get_Data_Counter_Service          ${row}
     Create Session          alias=${ALIAS}    url=${BOT_CORE_SERVICE}
 
-    Encrypt_data_counter_service          { "qr": "${QR_VALUE}", "trans_ref": "${GET_TRANS_REF}", "cid": "${GET_CID}" }
+    Encrypt_data_counter_service          { "qr": "${qr_string}", "trans_ref": "${GET_TRANS_REF}", "cid": "${GET_CID}" }
 
     &{body}=        Create dictionary       data=${RESULT_ENCRYPT_DATA} 
     ${response}=    POST On Session         alias=${ALIAS}     url=${URI_SIGNUP_CS_VALIDATE}     headers=&{HEADER_COUNTER_SERVICE}      json=${body}    expected_status=anything
@@ -32,6 +32,7 @@ Validate_Sign_up_CS
     Set global variable             ${RESPONSE_USERCODE}                 ${response.json()["status"]["user_code"]}             
     Set global variable             ${RESPONSE_USER_EN}                  ${response.json()["status"]["user_message_en"]}             
     Set global variable             ${RESPONSE_USER_TH}                  ${response.json()["status"]["user_message_th"]}             
+    Set global variable             ${TRANS_ID}                          -            
     Set global variable             ${TRANS_ID}                          ${response.json()["data"]["kyc_trans_id"]}             
 
 

@@ -27,6 +27,7 @@ Resource		../Main/Main.robot
 # Suite Setup			Start Project
 # Suite Teardown		Stop Project
 Suite Setup         Generate_Partner_Secret
+Suite Teardown          Log to console          ${TRANS_ID} 
 
 
 # robot  -t   Sign_up_Counter_Service_1    eKYC/api-ekyc/Test\ case/23.Counter_service.robot 
@@ -34,9 +35,8 @@ Suite Setup         Generate_Partner_Secret
 ***Test Cases***
 Sign_up_Counter_Service_1
     [Documentation]     ทดสอบระบบ sign up counter service กรณีลูกค้าทำรายการสำเร็จ
-    
     QR_code_page.Generate_QR_Code_for_test_qrstamp_scene
-    Run Keyword And Ignore Error    Counter_service_page.Validate_Sign_up_CS                                3
+    Run Keyword And Ignore Error    Counter_service_page.Validate_Sign_up_CS                  3           ${QR_VALUE}
     Run Keyword And Ignore Error    Counter_service_page.Confirmation_Sign_up_CS
     [Teardown]      save_data_excel_page.Save_Result_Counter_Service        3
 
@@ -83,3 +83,8 @@ Sign_up_Counter_Service_7
     [Teardown]       Run Keyword And Ignore Error       save_data_excel_page.Save_Result_Counter_Service        9
 
 
+Sign_up_Counter_Service_8
+    [Documentation]     ทดสอบระบบ sign up counter service กรณีลูกค้า นำ qr code ที่ใช้ไปแล้ว กลับมาใช้ซ้ำอีกครั้ง
+    QR_code_page.Generate_QR_Code_for_test_qrstamp_scene
+    Run Keyword And Ignore Error                        Counter_service_page.Validate_Sign_up_CS            10    2431526249778492022820745
+    # [Teardown]       Run Keyword And Ignore Error       save_data_excel_page.Save_Result_Counter_Service                10
