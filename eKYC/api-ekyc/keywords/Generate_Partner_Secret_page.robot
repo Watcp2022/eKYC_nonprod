@@ -9,7 +9,7 @@ Library                 ExcelLibrary
 
 
 ***Variables***
-${PATH_JAR_PARTNER}            tcrb-ekyc-partner-1.7.jar
+${PATH_JAR_PARTNER}            tcrb-ekyc-partner-1.8.jar
 # ${PATH_JAR_PARTNER}            tcrb-ekyc-cipher-3.5.jar
 
 

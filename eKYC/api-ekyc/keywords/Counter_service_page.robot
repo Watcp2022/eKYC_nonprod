@@ -8,7 +8,7 @@ Resource            ../Varriable/img_authen.robot
 Resource            ../Varriable/img.robot
 
 ***Variables***
-${PATH_JAR_CS}          tcrb-ekyc-partner-1.7.jar
+${PATH_JAR_CS}          tcrb-ekyc-partner-1.8.jar
 
 
 
