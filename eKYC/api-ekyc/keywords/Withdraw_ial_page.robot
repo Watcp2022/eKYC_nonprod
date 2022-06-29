@@ -36,8 +36,14 @@ Gen_cid_hash
     Set global variable         ${GET_CID_HASH}           ${TextFileContent}
 
 
+Check_have_bio2_3
+    [Arguments]     ${input_cid_hash}           
+    Connect To Database     psycopg2     ${DBName}    ${DBUser}    ${DBPass}    ${DBHost}    ${DBPort}
+    @{queryResults_from_cs_info} =  Query    SELECT x.* FROM kyc_db.kyc_transaction x WHERE ial_level IN ('2.3') AND cid_hash IN ('${input_cid_hash}')
+    ${ial_score_from_kyc_tran}          Get From List                   @{queryResults_from_cs_info}       	10
 
 Process_withDraw_bio
     [Arguments]     ${cid}
-    Gen_cid_hash    ${cid}
-    withdraw_bio    ${GET_CID_HASH} 
+    Gen_cid_hash            ${cid}
+    withdraw_bio            ${GET_CID_HASH} 
+    # Check_have_bio2_3       ${GET_CID_HASH} 
