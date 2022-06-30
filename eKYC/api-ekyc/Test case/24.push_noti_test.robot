@@ -56,7 +56,6 @@ Push_noti_2
     QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
     Get_term_and_conditionAPI_page.Agree_term_and_conditions
     Validate_customer_API_page.Validate_customer_Fails          6
-    Log to console          ${TRANS_ID} 
 
 Push_noti_3
     [Documentation]    check dopa fail
@@ -66,7 +65,6 @@ Push_noti_3
     Get_term_and_conditionAPI_page.Agree_term_and_conditions
     Validate_customer_API_page.Validate_customer_pass              4
     Check_DOPA_API_page.Check_DOPA_Fail           
-    Log to console          ${TRANS_ID} 
 
 Push_noti_4
     [Documentation]    FR Fail
@@ -80,7 +78,6 @@ Push_noti_4
     Facial_RecognitionAPI_page.Face_Rec_fail 
     Facial_RecognitionAPI_page.Face_Rec_fail 
     Facial_RecognitionAPI_page.Face_Rec_fail 
-    Log to console          ${TRANS_ID} 
 
 Push_noti_5
     [Documentation]    ไม่กดรับ consent
@@ -89,7 +86,6 @@ Push_noti_5
     QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
     Get_term_and_conditionAPI_page.Agree_term_and_conditions
     Validate_customer_API_page.Validate_customer_pass_and_Disagree_Consent              4
-    Log to console          ${TRANS_ID} 
 
 
 Push_noti_6

@@ -94,7 +94,7 @@ Check_ial_is_2_3
     # ${ial_score_from_cs_info}           Get From List                   @{queryResults_from_cs_info}       	    18
 
     Set global variable                 ${SCORE_IAL_KYCTRAN}            ${ial_score_from_kyc_tran}
-    # Should Be Equal As Strings          ${SCORE_IAL_KYCTRAN}            2.3
+    Should Be Equal As Strings          ${SCORE_IAL_KYCTRAN}            2.3
     # Set global variable                 ${SCORE_IAL_CS_INFO}            ${ial_score_from_cs_info}
     # Should Be Equal As Strings          ${ial_score_from_cs_info}       2.3
 

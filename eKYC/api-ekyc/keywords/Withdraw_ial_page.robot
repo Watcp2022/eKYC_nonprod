@@ -47,3 +47,4 @@ Process_withDraw_bio
     Gen_cid_hash            ${cid}
     withdraw_bio            ${GET_CID_HASH} 
     # Check_have_bio2_3       ${GET_CID_HASH} 
+    Log to console      [[[remove bio complete]]]

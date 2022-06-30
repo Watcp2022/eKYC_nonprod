@@ -185,7 +185,6 @@ QR_Stamp_used_2
     LivenessAPI_page.Liveness_and_FR_Pass
     # Run Keyword And Ignore Error                        QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
     # [Teardown]      Run Keyword And Ignore Error        save_data_excel_page.Save_Result_Stamp_Used        4
-    Log to console          ${TRANS_ID} 
 
 # robot   -t  QR_Stamp_used_2    eKYC/api-ekyc/Test\ case/19.QR_journey.robot 
 
@@ -299,11 +298,13 @@ Modify_Validate_customer_2
     Validate_customer_API_page.Validate_customer_qr_code_journey                                                    4
     [Teardown]      Run Keyword And Ignore Error        save_data_excel_page.Save_Result_Modify_validate_api        4
 
-#####################################################################################################################
 
-Gen_QR_CODE
-    Generate_Partner_Secret_page.Generate_cid               1100600292875
-    # QR_code_page.Generate_QR_Code_Only                       ${CID}
-    # Log ton console             ${QR_VALUE}
-
-    # robot    -t     Gen_QR_CODE       eKYC/api-ekyc/Test\ case/19.QR_journey.robot 
+QR_Happy_journey
+    QR_code_page.Generate_QR_Code_for_test_qrstamp_scene
+    Main.Start Project
+    QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
+    Get_term_and_conditionAPI_page.Agree_term_and_conditions
+    Validate_customer_API_page.Validate_customer_pass            4
+    Check_DOPA_API_page.Check_DOPA          
+    LivenessAPI_page.Liveness_and_FR_Pass
+    Check_ial_is_2_3                ${TRANS_ID}
