@@ -92,15 +92,11 @@ Validate_qrcode_modify_api_journey
 Generate_QR_Code_for_test_qrstamp_scene
     Set To Dictionary       ${HEADER_GEN_QR}      partner-secret=${GET_PARTNER_SECRET}
     Create Session          alias=${ALIAS}    url=${BOT_CORE_SERVICE}
-
     &{body}=        Create dictionary       cid=${AUM}    twins_status=true     twins_gender=male   journey_code=JN003       consent_onetrust_version=            consent_internal_version=
-
     ${response}=    POST On Session     alias=${ALIAS}     url=${URI_GEN_QRCODE}     headers=&{HEADER_GEN_QR}      json=${body}    expected_status=anything
-
     Set global variable             ${RESPONSE_CODE}                                  ${response.json()["status"]["code"]}             
     Set global variable             ${RESPONSE_MESSAGE}                               ${response.json()["status"]["message"]}             
     Set global variable             ${RESPONSE_REMARK}                                ${response.json()["status"]["remark"]}             
-
     Set global variable             ${QR_VALUE}                                       ${response.json()["data"]["qr"]}             
     Set global variable             ${QR_EXPIRE}                                      ${response.json()["data"]["qr_expired"]}             
     Set global variable             ${QR_STATUS}                                      ${response.json()["data"]["qr_status"]}             

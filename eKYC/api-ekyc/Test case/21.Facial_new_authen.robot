@@ -24,6 +24,7 @@ Resource		../Main/Main.robot
 Resource        ../keywords/Facial_authen_page.robot
 Resource        ../keywords/Generate_Partner_Secret_page.robot
 Resource        ../keywords/Facial_lock_page.robot
+Resource        ../keywords/Connect_database_page.robot
 
 Suite Setup         Generate_Partner_Secret
 
@@ -33,6 +34,7 @@ Facial_authen_01
     [Documentation]        ทดสอบระบบ Facial authen กรณีถ่ายภาพมายืนยัน จำนวน 1 ภาพ และผ่านในครั้งแรก
     Run Keyword And Ignore Error                        Facial_authen_page.Mobile_Facial_authen                     3    
     [Teardown]     Run Keyword And Ignore Error         save_data_excel_page.Save_Result_Facial_authen              3
+
 
 Facial_authen_02
     [Documentation]        ทดสอบระบบ Facial authen กรณีถ่ายภาพ Liveness fail จำนวน 9 ครั้ง และผ่านในครั้งสุดท้าย ครั้งที่ 10
@@ -116,3 +118,8 @@ Facial_authen_18
     Check_DOPA_API_page.Check_DOPA          
     LivenessAPI_page.Liveness_and_FR_Pass
     [Teardown]     Run Keyword And Ignore Error         save_data_excel_page.Save_Result_Facial_authen             20
+
+
+test_facail_authen
+    Facial_authen_page.Liveness_fail_authen         10
+    [Teardown]      Check_facial_temp_lock          1100600292875

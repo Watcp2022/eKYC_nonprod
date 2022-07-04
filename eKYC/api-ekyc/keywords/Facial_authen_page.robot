@@ -61,11 +61,11 @@ Mobile_Facial_authen
 
 
 Liveness_fail_authen
-    [Arguments]         ${row_gen_qrcode}
-    Get_data_excel.Get_data_facial_authen           ${row_gen_qrcode}  
+    [Arguments]         ${round}
+    FOR    ${index}    IN RANGE     0      ${round}
     Set To Dictionary       ${HEADER_FACIAL_AUTHEN}      partner-secret=${GET_PARTNER_SECRET}
     Create Session          alias=${ALIAS}    url=${BOT_CORE_SERVICE}
-    &{body}=        Create dictionary       cid=${GET_CID}       process_id=${GET_PROCESS_ID}      image_source=xxxxxxxxx
+    &{body}=        Create dictionary       cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=       process_id=00001      image_source=xxxxxxxxx
     ${response}=    POST On Session     alias=${ALIAS}     url=${URI_FACIAL_AUTHEN}     headers=&{HEADER_FACIAL_AUTHEN}      json=${body}    expected_status=anything
     Set global variable             ${RESPONSE_CODE}                                  ${response.json()["status"]["code"]}             
     Set global variable             ${RESPONSE_MESSAGE}                               ${response.json()["status"]["message"]}             
@@ -74,9 +74,7 @@ Liveness_fail_authen
     Set global variable             ${RESPONSE_USERCODE}           ${response.json()["status"]["user_code"]}             
     Set global variable             ${RESPONSE_USER_EN}            ${response.json()["status"]["user_message_en"]}             
     Set global variable             ${RESPONSE_USER_TH}            ${response.json()["status"]["user_message_th"]}             
-
-    Set global variable             ${SCORE_FACIAL}                                   ${response.json()["data"]["score"]}             
-
+    END
 
 Facial_fail_authen
     [Arguments]         ${row_gen_qrcode}

@@ -39,7 +39,7 @@ QR_Happy_journey
     Check_DOPA_API_page.Check_DOPA          
     LivenessAPI_page.Liveness_and_FR_Pass
     Check_ial_is_2_3                ${TRANS_ID}
-
+#  robot  -t  QR_Happy_journey   eKYC/api-ekyc/Test\ case/19.QR_journey.robot 
 ############################################################################
 
 
