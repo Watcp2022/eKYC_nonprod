@@ -99,6 +99,5 @@ Check_ial_is_2_3
     # Should Be Equal As Strings          ${ial_score_from_cs_info}       2.3
 
     Disconnect From Database
-# SELECT x.* FROM kyc_db.kyc_transaction x WHERE x.trans_id IN ('EU2021060100001')
 
 

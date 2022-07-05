@@ -49,7 +49,8 @@ Push_noti_other
     Validate_customer_API_page.Validate_customer_pass            14
     Check_DOPA_API_page.Check_DOPA          
     LivenessAPI_page.Liveness_and_FR_Pass
- 
+    IAL_Page.Check_ial_is_2_3                        ${TRANS_ID}
+
 Push_noti_2
     QR_code_page.Generate_QR_Code_for_test_qrstamp_scene
     Main.Start Project
