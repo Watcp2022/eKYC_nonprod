@@ -97,6 +97,3 @@ Push_noti_6
     Get_term_and_conditionAPI_page.Agree_term_and_conditions
     Validate_customer_API_page.Validate_customer_qr_code_journey                      13
 
-
-
-jjjjjjjj
