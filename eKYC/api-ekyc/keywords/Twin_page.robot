@@ -32,6 +32,6 @@ Dont_Have_Twin
     ${body}=        To Json              {"kyc_trans_id" : "${TRANS_ID}","twins_status": "false","twins_gender": ""}
     ${response}=    PUT On Session     alias=${ALIAS}     url=${URI_TWIN}   headers=&{HEADER_TWIN}    json=${body}      expected_status=anything
     # Request Should Be Successful    response=${response}
-    Run keyword if       '${response.status_code}' != '200'         Save_error_When_its_active          TWIN            
+    # Run keyword if       '${response.status_code}' != '200'         Save_error_When_its_active          TWIN            
 
     Set global variable     ${RESPONSE_TWIN_MESSAGE}         ${response.json()["status"]["message"]}

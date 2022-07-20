@@ -104,6 +104,7 @@ Validate_customer_pass
     Set global variable             ${MOBILE_NO}                      ${response.json()["data"]["mobile_number"]}               
     Set global variable             ${CONSENT_NEW_VERSION}            ${response.json()["data"]["consent_new_version"]}
     Run Keyword If                 '${CONSENT_NEW_VERSION}' == 'True'               Get_Consent_API_page.Agree_Consent
+    Log to console       [[[[ VALIDATE CUSTOMER ]]]]
 
 Validate_customer_pass_and_Disagree_Consent
     Set To Dictionary       ${HEADER_PLATFORM_KYC}      Authorization=${LOGIN_IDTOKEN}
