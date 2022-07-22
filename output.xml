@@ -1,14 +1,566 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.2.2 (Python 3.9.1 on darwin)" generated="20220720 14:37:34.873" rpa="false">
-<suite id="s1" name="25.Withdraw bio nonprod" source="/Users/patcharapol/Documents/GitHub/eKYC_nonprod/eKYC/api-ekyc/Test case/25.Withdraw_bio_nonprod.robot">
-<test id="s1-t1" name="Start_withdraw_bio">
-<kw name="Process_withDraw_bio" library="Withdraw_ial_page">
+<robot generator="Robot 3.2.2 (Python 3.9.1 on darwin)" generated="20220722 10:56:35.137" rpa="false">
+<suite id="s1" name="21.Facial new authen" source="/Users/patcharapol/Documents/GitHub/eKYC_nonprod/eKYC/api-ekyc/Test case/21.Facial_new_authen.robot">
+<kw name="Generate_Partner_Secret" library="Generate_Partner_Secret_page" type="setup">
+<kw name="Run Process" library="Process">
+<doc>Runs a process and waits for it to complete.</doc>
 <arguments>
-<arg>1102001907165</arg>
+<arg>java</arg>
+<arg>-jar</arg>
+<arg>${PATH_JAR_PARTNER}</arg>
+<arg>TCMB</arg>
+<arg>partner-secret</arg>
+<arg>nonprod</arg>
+<arg>file</arg>
+<arg>file</arg>
+<arg>alias=myproc</arg>
 </arguments>
-<kw name="Gen_cid_hash" library="Withdraw_ial_page">
+<msg timestamp="20220722 10:56:35.990" level="INFO">Starting process:
+java -jar tcrb-ekyc-partner-1.8.jar TCMB partner-secret nonprod file file</msg>
+<msg timestamp="20220722 10:56:35.996" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220722 10:56:36.378" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20220722 10:56:35.990" endtime="20220722 10:56:36.378"></status>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
 <arguments>
-<arg>${cid}</arg>
+<arg>partner_secret.txt</arg>
+</arguments>
+<assign>
+<var>${TextFileContent}</var>
+</assign>
+<msg timestamp="20220722 10:56:36.379" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/patcharapol/Documents/GitHub/eKYC_nonprod/partner_secret.txt"&gt;/Users/patcharapol/Documents/GitHub/eKYC_nonprod/partner_secret.txt&lt;/a&gt;'.</msg>
+<msg timestamp="20220722 10:56:36.380" level="INFO">${TextFileContent} = tBWSuzxnybZM3hgi0wT+1gbnPvN4LESqEdQYNj+NzsPni9iiHfugRe1BpYoArH5be3BZr7/MXlUSkIIhlJl26K/3D/6nwOC9geJTH+uB91AEL+XEOseY9zO0tL/3b1EM1gkKH8ybGpock3tHTvAmwZDqpxUi+7Wios3TswJkVQBuARJKRoN09ZEOqDK2/RI7Tz8np1ne...</msg>
+<status status="PASS" starttime="20220722 10:56:36.379" endtime="20220722 10:56:36.380"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${GET_PARTNER_SECRET}</arg>
+<arg>${TextFileContent}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:36.383" level="INFO">${GET_PARTNER_SECRET} = tBWSuzxnybZM3hgi0wT+1gbnPvN4LESqEdQYNj+NzsPni9iiHfugRe1BpYoArH5be3BZr7/MXlUSkIIhlJl26K/3D/6nwOC9geJTH+uB91AEL+XEOseY9zO0tL/3b1EM1gkKH8ybGpock3tHTvAmwZDqpxUi+7Wios3TswJkVQBuARJKRoN09ZEOqDK2/RI7Tz8np1ne...</msg>
+<status status="PASS" starttime="20220722 10:56:36.380" endtime="20220722 10:56:36.383"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:35.989" endtime="20220722 10:56:36.383"></status>
+</kw>
+<test id="s1-t1" name="Facial_authen_02">
+<kw name="Run Keyword And Ignore Error" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
+<arguments>
+<arg>Facial_authen_page.Liveness_fail_authen</arg>
+<arg>4</arg>
+</arguments>
+<kw name="Liveness_fail_authen" library="Facial_authen_page">
+<arguments>
+<arg>4</arg>
+</arguments>
+<kw name="${index} IN RANGE [ 0 | ${round} ]" type="for">
+<kw name="${index} = 0" type="foritem">
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${HEADER_FACIAL_AUTHEN}</arg>
+<arg>partner-secret=${GET_PARTNER_SECRET}</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:36.387" endtime="20220722 10:56:36.387"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${BOT_CORE_SERVICE}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:36.389" level="INFO">Creating Session using : alias=eKYC, url=https://api-dev.tcrb-onlinebanking-privated-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220722 10:56:36.388" endtime="20220722 10:56:36.389"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=</arg>
+<arg>process_id=00001</arg>
+<arg>image_source=xxxxxxxxx</arg>
+</arguments>
+<assign>
+<var>&amp;{body}</var>
+</assign>
+<msg timestamp="20220722 10:56:36.390" level="INFO">&amp;{body} = { cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I= | process_id=00001 | image_source=xxxxxxxxx }</msg>
+<status status="PASS" starttime="20220722 10:56:36.390" endtime="20220722 10:56:36.390"></status>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_FACIAL_AUTHEN}</arg>
+<arg>headers=&amp;{HEADER_FACIAL_AUTHEN}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=anything</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20220722 10:56:40.174" level="INFO">POST Request : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ path_url=/tcrb-platform-apipartner/v1/facial/authen 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Correlation-Id': 'QA', 'partner-code': 'TCMB', 'partner-secret': 'tBWSuzxnybZM3hgi0wT+1gbnPvN4LESqEdQYNj+NzsPni9iiHfugRe1BpYoArH5be3BZr7/MXlUSkIIhlJl26K/3D/6nwOC9geJTH+uB91AEL+XEOseY9zO0tL/3b1EM1gkKH8ybGpock3tHTvAmwZDqpxUi+7Wios3TswJkVQBuARJKRoN09ZEOqDK2/RI7Tz8np1neXfj2EeMAyPTpgf72cxG+Rf8xEklcOaE/cM3hTiaZDzCsZBfhel4VW1k=', 'x-apigw-api-id': 'fcs9rj83ui', 'Content-Length': '119', 'Content-Type': 'application/json'} 
+ body=b'{"cid": "uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=", "process_id": "00001", "image_source": "xxxxxxxxx"}' 
+ </msg>
+<msg timestamp="20220722 10:56:40.174" level="INFO">POST Response : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 22 Jul 2022 03:56:40 GMT', 'Content-Type': 'application/json', 'Content-Length': '240', 'Connection': 'keep-alive', 'Server': 'Server', 'x-amzn-RequestId': '316a0dd5-bc4f-4583-bbee-18d90b7210d1', 'x-amz-apigw-id': 'VpnuPH9SyQ0Fv9Q=', 'X-Amzn-Trace-Id': 'Root=1-62da1ff4-7f7e523772e0da3549ed24e2'} 
+ body={"status":{"code":"2009","message":"Liveness Detect Failed","remark":"","user_code":"E0030","user_message_en":"Liveness illegible","user_message_th":"ไม่สามารถตรวจจับใบหน้าได้"},"data":null} 
+ </msg>
+<msg timestamp="20220722 10:56:40.175" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.tcrb-onlinebanking-privated-bottech.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220722 10:56:40.175" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220722 10:56:36.390" endtime="20220722 10:56:40.175"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_CODE}</arg>
+<arg>${response.json()["status"]["code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.180" level="INFO">${RESPONSE_CODE} = 2009</msg>
+<status status="PASS" starttime="20220722 10:56:40.175" endtime="20220722 10:56:40.180"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_MESSAGE}</arg>
+<arg>${response.json()["status"]["message"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.185" level="INFO">${RESPONSE_MESSAGE} = Liveness Detect Failed</msg>
+<status status="PASS" starttime="20220722 10:56:40.181" endtime="20220722 10:56:40.186"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_REMARK}</arg>
+<arg>${response.json()["status"]["remark"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.190" level="INFO">${RESPONSE_REMARK} = </msg>
+<status status="PASS" starttime="20220722 10:56:40.186" endtime="20220722 10:56:40.190"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_API}</arg>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.194" level="INFO">${RESPONSE_API} = {"status":{"code":"2009","message":"Liveness Detect Failed","remark":"","user_code":"E0030","user_message_en":"Liveness illegible","user_message_th":"\xe0\xb9\x84\xe0\xb8\xa1\xe0\xb9\x88\xe0\xb8\xaa\x...</msg>
+<status status="PASS" starttime="20220722 10:56:40.191" endtime="20220722 10:56:40.194"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USERCODE}</arg>
+<arg>${response.json()["status"]["user_code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.197" level="INFO">${RESPONSE_USERCODE} = E0030</msg>
+<status status="PASS" starttime="20220722 10:56:40.194" endtime="20220722 10:56:40.197"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_EN}</arg>
+<arg>${response.json()["status"]["user_message_en"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.200" level="INFO">${RESPONSE_USER_EN} = Liveness illegible</msg>
+<status status="PASS" starttime="20220722 10:56:40.197" endtime="20220722 10:56:40.200"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_TH}</arg>
+<arg>${response.json()["status"]["user_message_th"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.202" level="INFO">${RESPONSE_USER_TH} = ไม่สามารถตรวจจับใบหน้าได้</msg>
+<status status="PASS" starttime="20220722 10:56:40.200" endtime="20220722 10:56:40.202"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:36.387" endtime="20220722 10:56:40.202"></status>
+</kw>
+<kw name="${index} = 1" type="foritem">
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${HEADER_FACIAL_AUTHEN}</arg>
+<arg>partner-secret=${GET_PARTNER_SECRET}</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:40.203" endtime="20220722 10:56:40.203"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${BOT_CORE_SERVICE}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:40.204" level="INFO">Creating Session using : alias=eKYC, url=https://api-dev.tcrb-onlinebanking-privated-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220722 10:56:40.203" endtime="20220722 10:56:40.204"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=</arg>
+<arg>process_id=00001</arg>
+<arg>image_source=xxxxxxxxx</arg>
+</arguments>
+<assign>
+<var>&amp;{body}</var>
+</assign>
+<msg timestamp="20220722 10:56:40.205" level="INFO">&amp;{body} = { cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I= | process_id=00001 | image_source=xxxxxxxxx }</msg>
+<status status="PASS" starttime="20220722 10:56:40.204" endtime="20220722 10:56:40.205"></status>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_FACIAL_AUTHEN}</arg>
+<arg>headers=&amp;{HEADER_FACIAL_AUTHEN}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=anything</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20220722 10:56:43.281" level="INFO">POST Request : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ path_url=/tcrb-platform-apipartner/v1/facial/authen 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Correlation-Id': 'QA', 'partner-code': 'TCMB', 'partner-secret': 'tBWSuzxnybZM3hgi0wT+1gbnPvN4LESqEdQYNj+NzsPni9iiHfugRe1BpYoArH5be3BZr7/MXlUSkIIhlJl26K/3D/6nwOC9geJTH+uB91AEL+XEOseY9zO0tL/3b1EM1gkKH8ybGpock3tHTvAmwZDqpxUi+7Wios3TswJkVQBuARJKRoN09ZEOqDK2/RI7Tz8np1neXfj2EeMAyPTpgf72cxG+Rf8xEklcOaE/cM3hTiaZDzCsZBfhel4VW1k=', 'x-apigw-api-id': 'fcs9rj83ui', 'Content-Length': '119', 'Content-Type': 'application/json'} 
+ body=b'{"cid": "uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=", "process_id": "00001", "image_source": "xxxxxxxxx"}' 
+ </msg>
+<msg timestamp="20220722 10:56:43.281" level="INFO">POST Response : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 22 Jul 2022 03:56:43 GMT', 'Content-Type': 'application/json', 'Content-Length': '240', 'Connection': 'keep-alive', 'Server': 'Server', 'x-amzn-RequestId': 'd76c7532-a015-440d-804e-6d87b5b94e6c', 'x-amz-apigw-id': 'Vpnu1EznyQ0FWWg=', 'X-Amzn-Trace-Id': 'Root=1-62da1ff8-54c439ad5d0189061df5e6da'} 
+ body={"status":{"code":"2009","message":"Liveness Detect Failed","remark":"","user_code":"E0030","user_message_en":"Liveness illegible","user_message_th":"ไม่สามารถตรวจจับใบหน้าได้"},"data":null} 
+ </msg>
+<msg timestamp="20220722 10:56:43.282" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.tcrb-onlinebanking-privated-bottech.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220722 10:56:43.282" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220722 10:56:40.205" endtime="20220722 10:56:43.282"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_CODE}</arg>
+<arg>${response.json()["status"]["code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.283" level="INFO">${RESPONSE_CODE} = 2009</msg>
+<status status="PASS" starttime="20220722 10:56:43.282" endtime="20220722 10:56:43.283"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_MESSAGE}</arg>
+<arg>${response.json()["status"]["message"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.284" level="INFO">${RESPONSE_MESSAGE} = Liveness Detect Failed</msg>
+<status status="PASS" starttime="20220722 10:56:43.283" endtime="20220722 10:56:43.284"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_REMARK}</arg>
+<arg>${response.json()["status"]["remark"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.285" level="INFO">${RESPONSE_REMARK} = </msg>
+<status status="PASS" starttime="20220722 10:56:43.284" endtime="20220722 10:56:43.285"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_API}</arg>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.286" level="INFO">${RESPONSE_API} = {"status":{"code":"2009","message":"Liveness Detect Failed","remark":"","user_code":"E0030","user_message_en":"Liveness illegible","user_message_th":"\xe0\xb9\x84\xe0\xb8\xa1\xe0\xb9\x88\xe0\xb8\xaa\x...</msg>
+<status status="PASS" starttime="20220722 10:56:43.285" endtime="20220722 10:56:43.286"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USERCODE}</arg>
+<arg>${response.json()["status"]["user_code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.287" level="INFO">${RESPONSE_USERCODE} = E0030</msg>
+<status status="PASS" starttime="20220722 10:56:43.287" endtime="20220722 10:56:43.287"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_EN}</arg>
+<arg>${response.json()["status"]["user_message_en"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.288" level="INFO">${RESPONSE_USER_EN} = Liveness illegible</msg>
+<status status="PASS" starttime="20220722 10:56:43.288" endtime="20220722 10:56:43.288"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_TH}</arg>
+<arg>${response.json()["status"]["user_message_th"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.289" level="INFO">${RESPONSE_USER_TH} = ไม่สามารถตรวจจับใบหน้าได้</msg>
+<status status="PASS" starttime="20220722 10:56:43.289" endtime="20220722 10:56:43.290"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:40.203" endtime="20220722 10:56:43.290"></status>
+</kw>
+<kw name="${index} = 2" type="foritem">
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${HEADER_FACIAL_AUTHEN}</arg>
+<arg>partner-secret=${GET_PARTNER_SECRET}</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:43.290" endtime="20220722 10:56:43.291"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${BOT_CORE_SERVICE}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:43.291" level="INFO">Creating Session using : alias=eKYC, url=https://api-dev.tcrb-onlinebanking-privated-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220722 10:56:43.291" endtime="20220722 10:56:43.291"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=</arg>
+<arg>process_id=00001</arg>
+<arg>image_source=xxxxxxxxx</arg>
+</arguments>
+<assign>
+<var>&amp;{body}</var>
+</assign>
+<msg timestamp="20220722 10:56:43.292" level="INFO">&amp;{body} = { cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I= | process_id=00001 | image_source=xxxxxxxxx }</msg>
+<status status="PASS" starttime="20220722 10:56:43.292" endtime="20220722 10:56:43.292"></status>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_FACIAL_AUTHEN}</arg>
+<arg>headers=&amp;{HEADER_FACIAL_AUTHEN}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=anything</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20220722 10:56:46.803" level="INFO">POST Request : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ path_url=/tcrb-platform-apipartner/v1/facial/authen 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Correlation-Id': 'QA', 'partner-code': 'TCMB', 'partner-secret': 'tBWSuzxnybZM3hgi0wT+1gbnPvN4LESqEdQYNj+NzsPni9iiHfugRe1BpYoArH5be3BZr7/MXlUSkIIhlJl26K/3D/6nwOC9geJTH+uB91AEL+XEOseY9zO0tL/3b1EM1gkKH8ybGpock3tHTvAmwZDqpxUi+7Wios3TswJkVQBuARJKRoN09ZEOqDK2/RI7Tz8np1neXfj2EeMAyPTpgf72cxG+Rf8xEklcOaE/cM3hTiaZDzCsZBfhel4VW1k=', 'x-apigw-api-id': 'fcs9rj83ui', 'Content-Length': '119', 'Content-Type': 'application/json'} 
+ body=b'{"cid": "uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=", "process_id": "00001", "image_source": "xxxxxxxxx"}' 
+ </msg>
+<msg timestamp="20220722 10:56:46.804" level="INFO">POST Response : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 22 Jul 2022 03:56:46 GMT', 'Content-Type': 'application/json', 'Content-Length': '637', 'Connection': 'keep-alive', 'Server': 'Server', 'x-amzn-RequestId': '5afd4e1a-5352-474a-87bf-fed7015a295e', 'x-amz-apigw-id': 'VpnvUEEvyQ0Fv9Q=', 'X-Amzn-Trace-Id': 'Root=1-62da1ffb-23c67bd5450ca8497f460265'} 
+ body={"status":{"code":"2025","message":"Customer Temporary Locked","remark":"liveness","user_code":"E0017","user_message_en":"Your profile has been locked due to reached maximum face recognition attempts.&lt;br/&gt;Please call customer care to unlock. 02-697-5454","user_message_th":"โปรไฟล์ของคุณถูกล็อค เนื่องจากการพยายามเปรียบเทียบใบหน้าถึงขีดจำกัดแล้ว&lt;br/&gt;กรุณาโทรติดต่อฝ่ายดูแลลูกค้าเพื่อปลดล็อค 02-697-5454"},"data":null} 
+ </msg>
+<msg timestamp="20220722 10:56:46.804" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.tcrb-onlinebanking-privated-bottech.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220722 10:56:46.804" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220722 10:56:43.292" endtime="20220722 10:56:46.804"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_CODE}</arg>
+<arg>${response.json()["status"]["code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.806" level="INFO">${RESPONSE_CODE} = 2025</msg>
+<status status="PASS" starttime="20220722 10:56:46.804" endtime="20220722 10:56:46.806"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_MESSAGE}</arg>
+<arg>${response.json()["status"]["message"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.807" level="INFO">${RESPONSE_MESSAGE} = Customer Temporary Locked</msg>
+<status status="PASS" starttime="20220722 10:56:46.806" endtime="20220722 10:56:46.807"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_REMARK}</arg>
+<arg>${response.json()["status"]["remark"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.808" level="INFO">${RESPONSE_REMARK} = liveness</msg>
+<status status="PASS" starttime="20220722 10:56:46.807" endtime="20220722 10:56:46.808"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_API}</arg>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.810" level="INFO">${RESPONSE_API} = {"status":{"code":"2025","message":"Customer Temporary Locked","remark":"liveness","user_code":"E0017","user_message_en":"Your profile has been locked due to reached maximum face recognition attempts....</msg>
+<status status="PASS" starttime="20220722 10:56:46.809" endtime="20220722 10:56:46.810"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USERCODE}</arg>
+<arg>${response.json()["status"]["user_code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.811" level="INFO">${RESPONSE_USERCODE} = E0017</msg>
+<status status="PASS" starttime="20220722 10:56:46.810" endtime="20220722 10:56:46.811"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_EN}</arg>
+<arg>${response.json()["status"]["user_message_en"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.812" level="INFO">${RESPONSE_USER_EN} = Your profile has been locked due to reached maximum face recognition attempts.&lt;br/&gt;Please call customer care to unlock. 02-697-5454</msg>
+<status status="PASS" starttime="20220722 10:56:46.811" endtime="20220722 10:56:46.812"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_TH}</arg>
+<arg>${response.json()["status"]["user_message_th"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.813" level="INFO">${RESPONSE_USER_TH} = โปรไฟล์ของคุณถูกล็อค เนื่องจากการพยายามเปรียบเทียบใบหน้าถึงขีดจำกัดแล้ว&lt;br/&gt;กรุณาโทรติดต่อฝ่ายดูแลลูกค้าเพื่อปลดล็อค 02-697-5454</msg>
+<status status="PASS" starttime="20220722 10:56:46.813" endtime="20220722 10:56:46.814"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:43.290" endtime="20220722 10:56:46.814"></status>
+</kw>
+<kw name="${index} = 3" type="foritem">
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${HEADER_FACIAL_AUTHEN}</arg>
+<arg>partner-secret=${GET_PARTNER_SECRET}</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:46.814" endtime="20220722 10:56:46.814"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${BOT_CORE_SERVICE}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:46.815" level="INFO">Creating Session using : alias=eKYC, url=https://api-dev.tcrb-onlinebanking-privated-bottech.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20220722 10:56:46.815" endtime="20220722 10:56:46.816"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=</arg>
+<arg>process_id=00001</arg>
+<arg>image_source=xxxxxxxxx</arg>
+</arguments>
+<assign>
+<var>&amp;{body}</var>
+</assign>
+<msg timestamp="20220722 10:56:46.817" level="INFO">&amp;{body} = { cid=uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I= | process_id=00001 | image_source=xxxxxxxxx }</msg>
+<status status="PASS" starttime="20220722 10:56:46.816" endtime="20220722 10:56:46.817"></status>
+</kw>
+<kw name="Post On Session" library="RequestsLibrary">
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<arguments>
+<arg>alias=${ALIAS}</arg>
+<arg>url=${URI_FACIAL_AUTHEN}</arg>
+<arg>headers=&amp;{HEADER_FACIAL_AUTHEN}</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=anything</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20220722 10:56:47.446" level="INFO">POST Request : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ path_url=/tcrb-platform-apipartner/v1/facial/authen 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Correlation-Id': 'QA', 'partner-code': 'TCMB', 'partner-secret': 'tBWSuzxnybZM3hgi0wT+1gbnPvN4LESqEdQYNj+NzsPni9iiHfugRe1BpYoArH5be3BZr7/MXlUSkIIhlJl26K/3D/6nwOC9geJTH+uB91AEL+XEOseY9zO0tL/3b1EM1gkKH8ybGpock3tHTvAmwZDqpxUi+7Wios3TswJkVQBuARJKRoN09ZEOqDK2/RI7Tz8np1neXfj2EeMAyPTpgf72cxG+Rf8xEklcOaE/cM3hTiaZDzCsZBfhel4VW1k=', 'x-apigw-api-id': 'fcs9rj83ui', 'Content-Length': '119', 'Content-Type': 'application/json'} 
+ body=b'{"cid": "uF6ywXRW2IKSo3hJmOWYZ9AX81kSBjM0OXqi71ilnHrKwBAN66r4S0I=", "process_id": "00001", "image_source": "xxxxxxxxx"}' 
+ </msg>
+<msg timestamp="20220722 10:56:47.447" level="INFO">POST Response : url=https://api-dev.tcrb-onlinebanking-privated-bottech.com/tcrb-platform-apipartner/v1/facial/authen 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 22 Jul 2022 03:56:47 GMT', 'Content-Type': 'application/json', 'Content-Length': '637', 'Connection': 'keep-alive', 'Server': 'Server', 'x-amzn-RequestId': '38d98e9b-41fb-416f-bced-f18331440481', 'x-amz-apigw-id': 'Vpnv3F2eSQ0FcDQ=', 'X-Amzn-Trace-Id': 'Root=1-62da1ffe-571fda1110b8c19e552433d5'} 
+ body={"status":{"code":"2025","message":"Customer Temporary Locked","remark":"liveness","user_code":"E0017","user_message_en":"Your profile has been locked due to reached maximum face recognition attempts.&lt;br/&gt;Please call customer care to unlock. 02-697-5454","user_message_th":"โปรไฟล์ของคุณถูกล็อค เนื่องจากการพยายามเปรียบเทียบใบหน้าถึงขีดจำกัดแล้ว&lt;br/&gt;กรุณาโทรติดต่อฝ่ายดูแลลูกค้าเพื่อปลดล็อค 02-697-5454"},"data":null} 
+ </msg>
+<msg timestamp="20220722 10:56:47.447" level="INFO">/Library/Frameworks/Python.framework/Versions/3.9/lib/python3.9/site-packages/urllib3/connectionpool.py:1013: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.tcrb-onlinebanking-privated-bottech.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  warnings.warn(</msg>
+<msg timestamp="20220722 10:56:47.447" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220722 10:56:46.817" endtime="20220722 10:56:47.447"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_CODE}</arg>
+<arg>${response.json()["status"]["code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:47.448" level="INFO">${RESPONSE_CODE} = 2025</msg>
+<status status="PASS" starttime="20220722 10:56:47.447" endtime="20220722 10:56:47.448"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_MESSAGE}</arg>
+<arg>${response.json()["status"]["message"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:47.450" level="INFO">${RESPONSE_MESSAGE} = Customer Temporary Locked</msg>
+<status status="PASS" starttime="20220722 10:56:47.449" endtime="20220722 10:56:47.450"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_REMARK}</arg>
+<arg>${response.json()["status"]["remark"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:47.451" level="INFO">${RESPONSE_REMARK} = liveness</msg>
+<status status="PASS" starttime="20220722 10:56:47.450" endtime="20220722 10:56:47.451"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_API}</arg>
+<arg>${response.content}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:47.453" level="INFO">${RESPONSE_API} = {"status":{"code":"2025","message":"Customer Temporary Locked","remark":"liveness","user_code":"E0017","user_message_en":"Your profile has been locked due to reached maximum face recognition attempts....</msg>
+<status status="PASS" starttime="20220722 10:56:47.452" endtime="20220722 10:56:47.453"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USERCODE}</arg>
+<arg>${response.json()["status"]["user_code"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:47.454" level="INFO">${RESPONSE_USERCODE} = E0017</msg>
+<status status="PASS" starttime="20220722 10:56:47.453" endtime="20220722 10:56:47.455"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_EN}</arg>
+<arg>${response.json()["status"]["user_message_en"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:47.456" level="INFO">${RESPONSE_USER_EN} = Your profile has been locked due to reached maximum face recognition attempts.&lt;br/&gt;Please call customer care to unlock. 02-697-5454</msg>
+<status status="PASS" starttime="20220722 10:56:47.455" endtime="20220722 10:56:47.457"></status>
+</kw>
+<kw name="Set Global Variable" library="BuiltIn">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${RESPONSE_USER_TH}</arg>
+<arg>${response.json()["status"]["user_message_th"]}</arg>
+</arguments>
+<msg timestamp="20220722 10:56:47.458" level="INFO">${RESPONSE_USER_TH} = โปรไฟล์ของคุณถูกล็อค เนื่องจากการพยายามเปรียบเทียบใบหน้าถึงขีดจำกัดแล้ว&lt;br/&gt;กรุณาโทรติดต่อฝ่ายดูแลลูกค้าเพื่อปลดล็อค 02-697-5454</msg>
+<status status="PASS" starttime="20220722 10:56:47.457" endtime="20220722 10:56:47.458"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:46.814" endtime="20220722 10:56:47.458"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:36.386" endtime="20220722 10:56:47.458"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:36.386" endtime="20220722 10:56:47.458"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:36.385" endtime="20220722 10:56:47.458"></status>
+</kw>
+<kw name="Check_facial_temp_lock" library="Connect_database_page">
+<arguments>
+<arg>1100600292875</arg>
+</arguments>
+<kw name="Gen_cid_hash" library="Connect_database_page">
+<arguments>
+<arg>${input_cid}</arg>
 </arguments>
 <kw name="Run Process" library="Process">
 <doc>Runs a process and waits for it to complete.</doc>
@@ -22,11 +574,11 @@
 <arg>file</arg>
 <arg>alias=myproc</arg>
 </arguments>
-<msg timestamp="20220720 14:37:35.372" level="INFO">Starting process:
-java -jar tcrb-ekyc-partner-1.8.jar hash 1102001907165 file file</msg>
-<msg timestamp="20220720 14:37:35.378" level="INFO">Waiting for process to complete.</msg>
-<msg timestamp="20220720 14:37:35.650" level="INFO">Process completed.</msg>
-<status status="PASS" starttime="20220720 14:37:35.371" endtime="20220720 14:37:35.651"></status>
+<msg timestamp="20220722 10:56:47.461" level="INFO">Starting process:
+java -jar tcrb-ekyc-partner-1.8.jar hash 1100600292875 file file</msg>
+<msg timestamp="20220722 10:56:47.467" level="INFO">Waiting for process to complete.</msg>
+<msg timestamp="20220722 10:56:47.571" level="INFO">Process completed.</msg>
+<status status="PASS" starttime="20220722 10:56:47.460" endtime="20220722 10:56:47.572"></status>
 </kw>
 <kw name="Get File" library="OperatingSystem">
 <doc>Returns the contents of a specified file.</doc>
@@ -36,9 +588,9 @@ java -jar tcrb-ekyc-partner-1.8.jar hash 1102001907165 file file</msg>
 <assign>
 <var>${TextFileContent}</var>
 </assign>
-<msg timestamp="20220720 14:37:35.652" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/patcharapol/Documents/GitHub/eKYC_nonprod/hashing.txt"&gt;/Users/patcharapol/Documents/GitHub/eKYC_nonprod/hashing.txt&lt;/a&gt;'.</msg>
-<msg timestamp="20220720 14:37:35.652" level="INFO">${TextFileContent} = 18a824a6661109441c76a975154a10f753745acdec58a7dddc48e90e0d09a6ba</msg>
-<status status="PASS" starttime="20220720 14:37:35.651" endtime="20220720 14:37:35.652"></status>
+<msg timestamp="20220722 10:56:47.573" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/patcharapol/Documents/GitHub/eKYC_nonprod/hashing.txt"&gt;/Users/patcharapol/Documents/GitHub/eKYC_nonprod/hashing.txt&lt;/a&gt;'.</msg>
+<msg timestamp="20220722 10:56:47.573" level="INFO">${TextFileContent} = 88d903cf1259372980ec75cb3117a215a10f5ba040d33e64fc04164379e9fad1</msg>
+<status status="PASS" starttime="20220722 10:56:47.572" endtime="20220722 10:56:47.573"></status>
 </kw>
 <kw name="Set Global Variable" library="BuiltIn">
 <doc>Makes a variable available globally in all tests and suites.</doc>
@@ -46,12 +598,12 @@ java -jar tcrb-ekyc-partner-1.8.jar hash 1102001907165 file file</msg>
 <arg>${GET_CID_HASH}</arg>
 <arg>${TextFileContent}</arg>
 </arguments>
-<msg timestamp="20220720 14:37:35.654" level="INFO">${GET_CID_HASH} = 18a824a6661109441c76a975154a10f753745acdec58a7dddc48e90e0d09a6ba</msg>
-<status status="PASS" starttime="20220720 14:37:35.652" endtime="20220720 14:37:35.654"></status>
+<msg timestamp="20220722 10:56:47.577" level="INFO">${GET_CID_HASH} = 88d903cf1259372980ec75cb3117a215a10f5ba040d33e64fc04164379e9fad1</msg>
+<status status="PASS" starttime="20220722 10:56:47.574" endtime="20220722 10:56:47.577"></status>
 </kw>
-<status status="PASS" starttime="20220720 14:37:35.371" endtime="20220720 14:37:35.654"></status>
+<status status="PASS" starttime="20220722 10:56:47.459" endtime="20220722 10:56:47.577"></status>
 </kw>
-<kw name="withdraw_bio" library="Withdraw_ial_page">
+<kw name="Check_temp_lock" library="Connect_database_page">
 <arguments>
 <arg>${GET_CID_HASH}</arg>
 </arguments>
@@ -66,37 +618,176 @@ connect to the database using `dbName`, `dbUsername`, and `dbPassword`.</doc>
 <arg>${DBHost}</arg>
 <arg>${DBPort}</arg>
 </arguments>
-<msg timestamp="20220720 14:37:35.679" level="INFO">Connecting using : psycopg2.connect(database=bot_v2, user=postgres, password=&amp;6gh2#5ONWisCQ, host=tcrb-bot-nprd-db.cluster-ckedyfslvwdh.ap-southeast-1.rds.amazonaws.com, port=5432) </msg>
-<status status="PASS" starttime="20220720 14:37:35.655" endtime="20220720 14:37:35.967"></status>
+<msg timestamp="20220722 10:56:47.599" level="INFO">Connecting using : psycopg2.connect(database=bot_v2, user=postgres, password=&amp;6gh2#5ONWisCQ, host=tcrb-bot-nprd-db.cluster-ckedyfslvwdh.ap-southeast-1.rds.amazonaws.com, port=5432) </msg>
+<status status="PASS" starttime="20220722 10:56:47.578" endtime="20220722 10:56:47.894"></status>
 </kw>
-<kw name="Execute Sql String" library="DatabaseLibrary">
-<doc>Executes the sqlString as SQL commands. Useful to pass arguments to your sql. Set optional input `sansTran` to
-True to run command without an explicit transaction commit or rollback.</doc>
+<kw name="Query" library="DatabaseLibrary">
+<doc>Uses the input `selectStatement` to query for the values that will be returned as a list of tuples. Set optional
+input `sansTran` to True to run command without an explicit transaction commit or rollback.
+Set optional input `returnAsDict` to True to return values as a list of dictionaries.</doc>
 <arguments>
-<arg>UPDATE kyc_db.kyc_transaction SET ial_level='' WHERE cid_hash='${input_cid_hash}' And ial_level='2.3'</arg>
+<arg>SELECT x.* FROM image_db.customer_facial_lock x WHERE x.cid_hash IN ('${input_cid_hash}') AND x.temporary_lock IN (true)</arg>
 </arguments>
-<msg timestamp="20220720 14:37:35.969" level="INFO">Executing : Execute SQL String  |  UPDATE kyc_db.kyc_transaction SET ial_level='' WHERE cid_hash='18a824a6661109441c76a975154a10f753745acdec58a7dddc48e90e0d09a6ba' And ial_level='2.3' </msg>
-<status status="PASS" starttime="20220720 14:37:35.968" endtime="20220720 14:37:36.090"></status>
+<assign>
+<var>@{queryResults_from_cs_info}</var>
+</assign>
+<msg timestamp="20220722 10:56:47.895" level="INFO">Executing : Query  |  SELECT x.* FROM image_db.customer_facial_lock x WHERE x.cid_hash IN ('88d903cf1259372980ec75cb3117a215a10f5ba040d33e64fc04164379e9fad1') AND x.temporary_lock IN (true) </msg>
+<msg timestamp="20220722 10:56:48.022" level="INFO">@{queryResults_from_cs_info} = [ ('e4e71e844fa14918afadb0a987347f28', '88d903cf1259372980ec75cb3117a215a10f5ba040d33e64fc04164379e9fad1', True, False, datetime.datetime(2022, 5, 17, 11, 16, 50, 993682), 'TCRB-TABLET', datetime.date...</msg>
+<status status="PASS" starttime="20220722 10:56:47.895" endtime="20220722 10:56:48.022"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>@{queryResults_from_cs_info}</arg>
+<arg>2</arg>
+</arguments>
+<assign>
+<var>${result_facial_temp_lock}</var>
+</assign>
+<msg timestamp="20220722 10:56:48.024" level="INFO">${result_facial_temp_lock} = True</msg>
+<status status="PASS" starttime="20220722 10:56:48.023" endtime="20220722 10:56:48.024"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${result_facial_temp_lock}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20220722 10:56:48.025" level="INFO">Argument types are:
+&lt;class 'bool'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20220722 10:56:48.024" endtime="20220722 10:56:48.025"></status>
 </kw>
 <kw name="Disconnect From Database" library="DatabaseLibrary">
 <doc>Disconnects from the database.</doc>
-<msg timestamp="20220720 14:37:36.091" level="INFO">Executing : Disconnect From Database</msg>
-<status status="PASS" starttime="20220720 14:37:36.091" endtime="20220720 14:37:36.092"></status>
+<msg timestamp="20220722 10:56:48.025" level="INFO">Executing : Disconnect From Database</msg>
+<status status="PASS" starttime="20220722 10:56:48.025" endtime="20220722 10:56:48.026"></status>
 </kw>
-<status status="PASS" starttime="20220720 14:37:35.654" endtime="20220720 14:37:36.092"></status>
+<status status="PASS" starttime="20220722 10:56:47.577" endtime="20220722 10:56:48.026"></status>
 </kw>
-<kw name="Log To Console" library="BuiltIn">
-<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20220722 10:56:47.459" endtime="20220722 10:56:48.026"></status>
+</kw>
+<kw name="Run Keyword And Ignore Error" library="BuiltIn" type="teardown">
+<doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
 <arguments>
-<arg>[[[remove bio complete]]]</arg>
+<arg>save_data_excel_page.Save_Result_Facial_authen</arg>
+<arg>4</arg>
 </arguments>
-<status status="PASS" starttime="20220720 14:37:36.093" endtime="20220720 14:37:36.093"></status>
+<kw name="Save_Result_Facial_authen" library="save_data_excel_page">
+<arguments>
+<arg>4</arg>
+</arguments>
+<kw name="Open Excel Document" library="ExcelLibrary">
+<doc>Opens xlsx document file.</doc>
+<arguments>
+<arg>filename=${FILE_NAME_QR}</arg>
+<arg>doc_id=doc10</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.029" endtime="20220722 10:56:48.114"></status>
 </kw>
-<status status="PASS" starttime="20220720 14:37:35.370" endtime="20220720 14:37:36.094"></status>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=9</arg>
+<arg>value=${RESPONSE_CODE}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.114" endtime="20220722 10:56:48.115"></status>
 </kw>
-<status status="PASS" starttime="20220720 14:37:35.369" endtime="20220720 14:37:36.094" critical="yes"></status>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=10</arg>
+<arg>value=${RESPONSE_MESSAGE}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.115" endtime="20220722 10:56:48.115"></status>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=11</arg>
+<arg>value=${RESPONSE_REMARK}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.116" endtime="20220722 10:56:48.116"></status>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=15</arg>
+<arg>value=${RESPONSE_API}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.116" endtime="20220722 10:56:48.117"></status>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=12</arg>
+<arg>value=${RESPONSE_USERCODE}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.117" endtime="20220722 10:56:48.118"></status>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=13</arg>
+<arg>value=${RESPONSE_USER_EN}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.118" endtime="20220722 10:56:48.118"></status>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=14</arg>
+<arg>value=${RESPONSE_USER_TH}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.119" endtime="20220722 10:56:48.119"></status>
+</kw>
+<kw name="Write Excel Cell" library="ExcelLibrary">
+<doc>Writes value to the cell.</doc>
+<arguments>
+<arg>row_num=${row}</arg>
+<arg>col_num=8</arg>
+<arg>value=${SCORE_FACIAL}</arg>
+<arg>sheet_name=Facial_authen</arg>
+</arguments>
+<msg timestamp="20220722 10:56:48.122" level="FAIL">Variable '${SCORE_FACIAL}' not found.</msg>
+<status status="FAIL" starttime="20220722 10:56:48.119" endtime="20220722 10:56:48.122"></status>
+</kw>
+<kw name="Save Excel Document" library="ExcelLibrary">
+<doc>Saves the current document to disk.</doc>
+<arguments>
+<arg>filename=${FILE_NAME_QR}</arg>
+</arguments>
+<status status="PASS" starttime="20220722 10:56:48.122" endtime="20220722 10:56:48.195"></status>
+</kw>
+<kw name="Close All Excel Documents" library="ExcelLibrary">
+<doc>Closes all opened documents.</doc>
+<status status="PASS" starttime="20220722 10:56:48.195" endtime="20220722 10:56:48.195"></status>
+</kw>
+<status status="FAIL" starttime="20220722 10:56:48.028" endtime="20220722 10:56:48.195"></status>
+</kw>
+<status status="PASS" starttime="20220722 10:56:48.027" endtime="20220722 10:56:48.195"></status>
+</kw>
+<doc>ทดสอบระบบ Facial authen กรณีถ่ายภาพ Liveness fail จำนวน x ครั้ง และผ่านในครั้งสุดท้าย ครั้งที่ x</doc>
+<tags>
+<tag>Regression</tag>
+</tags>
+<status status="PASS" starttime="20220722 10:56:36.383" endtime="20220722 10:56:48.196" critical="yes"></status>
 </test>
-<status status="PASS" starttime="20220720 14:37:34.874" endtime="20220720 14:37:36.097"></status>
+<status status="PASS" starttime="20220722 10:56:35.140" endtime="20220722 10:56:48.196"></status>
 </suite>
 <statistics>
 <total>
@@ -104,9 +795,10 @@ True to run command without an explicit transaction commit or rollback.</doc>
 <stat pass="1" fail="0">All Tests</stat>
 </total>
 <tag>
+<stat pass="1" fail="0">Regression</stat>
 </tag>
 <suite>
-<stat pass="1" fail="0" id="s1" name="25.Withdraw bio nonprod">25.Withdraw bio nonprod</stat>
+<stat pass="1" fail="0" id="s1" name="21.Facial new authen">21.Facial new authen</stat>
 </suite>
 </statistics>
 <errors>
