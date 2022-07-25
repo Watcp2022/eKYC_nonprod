@@ -118,11 +118,18 @@ test_facail_authen
     [Teardown]      Check_facial_temp_lock          1100600292875
 
 
-
 Facial_authen_19
     [Tags]          Regression
     [Documentation]        ทดสอบระบบ Facial authen กรณีถ่ายภาพ Liveness fail จำนวน x ครั้ง และเกิด Temp Lock
     Run Keyword And Ignore Error                                Facial_authen_page.Liveness_fail_authen            4
     Connect_database_page.Check_facial_temp_lock                 1100600292875
-    # Run Keyword And Ignore Error         Facial_authen_page.Liveness_fail_authen            4
-    # [Teardown]     Run Keyword And Ignore Error         save_data_excel_page.Save_Result_Facial_authen              4
+
+Facial_authen_20
+    [Tags]          Regression
+    [Documentation]        ทดสอบระบบ Facial authen กรณีถ่ายภาพ face rec fail จำนวน x ครั้ง และเกิด permanance Lock
+    Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
+    Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
+    Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
+
+    
+    Connect_database_page.Check_facial_permananceLock_lock          1100600292875

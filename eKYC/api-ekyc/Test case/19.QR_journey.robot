@@ -246,7 +246,7 @@ QR_Stamp_used_7
     Main.Start Project
     QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
     Get_term_and_conditionAPI_page.Agree_term_and_conditions
-    Validate_customer_API_page.Validate_customer_pass              4
+    Validate_customer_API_page.Validate_customer_pass              13
     Check_DOPA_API_page.Check_DOPA_Fail           
     # Run Keyword And Ignore Error           QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
     # [Teardown]      Run Keyword And Ignore Error        save_data_excel_page.Save_Result_Stamp_Used        9

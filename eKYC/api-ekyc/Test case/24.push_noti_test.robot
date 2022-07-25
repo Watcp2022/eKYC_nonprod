@@ -41,12 +41,14 @@ Push_noti_1
     Check_DOPA_API_page.Check_DOPA          
     LivenessAPI_page.Liveness_and_FR_Pass
 
+# 20=oil  13=pepsi   19=pkk
+
 Push_noti_other
     QR_code_page.Generate_QR_Code_for_test_qrstamp_scene
     Main.Start Project
     QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
     Get_term_and_conditionAPI_page.Agree_term_and_conditions
-    Validate_customer_API_page.Validate_customer_pass            14
+    Validate_customer_API_page.Validate_customer_pass            19
     Check_DOPA_API_page.Check_DOPA          
     LivenessAPI_page.Liveness_and_FR_Pass
     IAL_Page.Check_ial_is_2_3                        ${TRANS_ID}
@@ -56,7 +58,7 @@ Push_noti_2
     Main.Start Project
     QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
     Get_term_and_conditionAPI_page.Agree_term_and_conditions
-    Validate_customer_API_page.Validate_customer_Fails          6
+    Validate_customer_API_page.Validate_customer_Fails          4
 
 Push_noti_3
     [Documentation]    check dopa fail

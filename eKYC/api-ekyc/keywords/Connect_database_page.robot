@@ -59,6 +59,7 @@ Unlock_permanance_lock
     Execute Sql String      UPDATE image_db.customer_facial_lock SET temporary_unlock_remaining=0,permanent_lock=false WHERE cid_hash='${input_cid_hash}'
     Disconnect From Database
 
+Set_permanance_Lock
 
 Process_unlock_permanance_Lock
     [Arguments]     ${cid}
