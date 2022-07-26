@@ -8,13 +8,9 @@ Resource    ../keywords/Validate_customer_API_page.robot
 Liveness_and_FR_Pass
     Set To Dictionary       ${HEADER_PLATFORM_KYC}      Authorization=${LOGIN_IDTOKEN}
     Log                     ${HEADER_PLATFORM_KYC}
-
     Create Session          alias=${ALIAS}    url=${URL_CORE_SERVICE}
     ${body}=        To Json         {"image_source":"${IMG_SOURCE}","kyc_trans_id" : "${TRANS_ID}"}     
     ${resp}=    POST On Session    alias=${ALIAS}     url=${URI_POST_VALIDATE_IMAGE}    headers=&{HEADER_PLATFORM_KYC}    json=${body}
-
-    # Should Be Equal As Integers     ${resp.json()["status"]["code"]}             ${RESPONSE_CODE_SUCCESS}   
-    # Should Be Equal                 ${resp.json()["status"]["message"]}          ${RESPONSE_MESSAGE_SUCCESS}
     Set global variable             ${MESS_STATUS}                               ${resp.json()["status"]["message"]}
     Set global variable             ${LN_FR_RESPONE_MESSAGE}                     ${resp.json()["status"]["message"]}
 
@@ -162,3 +158,12 @@ Return_Error_Trans_Fail
     # Should Be Equal                 ${MESS_STATUS}               ${RESPONSE_MESSAGE_2005}
 
 
+Liveness_and_FR_Pass_support_test
+    [Arguments]         ${img_selfie}
+    Set To Dictionary       ${HEADER_PLATFORM_KYC}      Authorization=${LOGIN_IDTOKEN}
+    Log                     ${HEADER_PLATFORM_KYC}
+    Create Session          alias=${ALIAS}    url=${URL_CORE_SERVICE}
+    ${body}=        To Json         {"image_source":"${${img_selfie}}","kyc_trans_id" : "${TRANS_ID}"}     
+    ${resp}=    POST On Session    alias=${ALIAS}     url=${URI_POST_VALIDATE_IMAGE}    headers=&{HEADER_PLATFORM_KYC}    json=${body}
+    Set global variable             ${MESS_STATUS}                               ${resp.json()["status"]["message"]}
+    Set global variable             ${LN_FR_RESPONE_MESSAGE}                     ${resp.json()["status"]["message"]}

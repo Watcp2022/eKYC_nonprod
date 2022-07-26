@@ -4,8 +4,7 @@ Library             Collections
 Resource            ../Varriable/varriable.robot
 Resource            ../keywords/Get_data_excel.robot
 Resource            ../keywords/Get_Consent_API_page.robot
-
-***Variables***
+Resource            ../Varriable/img_authen.robot
 
 
 
@@ -189,3 +188,19 @@ Validate_customer_Fails
     ${body}=        To Json         { "kyc_trans_id":"${TRANS_ID}", "alley": " ", "birth_date": "${BIRTH_DATE}", "cid":"1100600292855", "date_of_issue": "30-12-2550", "district": "อำเภอบางกรวย", "expired_date": "26-07-2567", "first_name_en": "${FIRST_NAME_EN}", "first_name_th": "${FIRST_NAME}", "house_no": "425", "issue_by": "พระโขนง/กรุงเทพมหานคร", "lane": " ", "last_name_en": "${SURNAME_EN}", "last_name_th": "${SURNAME}", "middle_name_en": "middle", "middle_name_th": "กลาง", "moo": " ", "province": "บางกะปิ", "request_no": 123456789, "road": "นวมินทร์", "sex": "ชาย", "sub_district": "บางสีทอง", "title_en": "Mr.", "title_th": "นาย", "img": "${IMG}"}
     ${response}=    POST On Session     alias=${ALIAS}     url=${URI_POST_VALIDATE_CUSTOMER}   headers=&{HEADER_PLATFORM_KYC}    json=${body}
 
+
+Validate_customer_support_test
+    Set To Dictionary       ${HEADER_PLATFORM_KYC}      Authorization=${LOGIN_IDTOKEN}
+    Log                     ${HEADER_PLATFORM_KYC}
+
+    Create Session          alias=${ALIAS}    url=${URL_CORE_SERVICE} 
+    [Arguments]                             ${row_in_excel}      ${img_base64}
+    Get_Data_Customer_MainCase           ${row_in_excel}
+
+    ${body}=        To Json         { "kyc_trans_id":"${TRANS_ID}", "alley": " ", "birth_date": "${BIRTH_DATE}", "cid":"${GET_CID}", "date_of_issue": "04-06-2559", "district": "อำเภอบางกรวย", "expired_date": "26-07-2567", "first_name_en": "${FIRST_NAME_EN}", "first_name_th": "${FIRST_NAME}", "house_no": "425", "issue_by": "พระโขนง/กรุงเทพมหานคร", "lane": " ", "last_name_en": "${SURNAME_EN}", "last_name_th": "${SURNAME}", "middle_name_en": "middle", "middle_name_th": "กลาง", "moo": " ", "province": "บางกะปิ", "request_no": 123456789, "road": "นวมินทร์", "sex": "ชาย", "sub_district": "บางสีทอง", "title_en": "Mr.", "title_th": "นาย", "img": "${${img_base64}}"}
+
+    ${response}=    POST On Session     alias=${ALIAS}     url=${URI_POST_VALIDATE_CUSTOMER}   headers=&{HEADER_PLATFORM_KYC}    json=${body}
+    Set global variable             ${MOBILE_NO}                      ${response.json()["data"]["mobile_number"]}               
+    Set global variable             ${CONSENT_NEW_VERSION}            ${response.json()["data"]["consent_new_version"]}
+    Run Keyword If                 '${CONSENT_NEW_VERSION}' == 'True'               Get_Consent_API_page.Agree_Consent
+    Log to console       [[[[ VALIDATE CUSTOMER ]]]]
