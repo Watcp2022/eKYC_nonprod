@@ -220,19 +220,19 @@ Happy_007
 semi_eKYC_happy
 	# Generate_Transaction_page.Start_Generate_Transaction
 	# Get_term_and_conditionAPI_page.Agree_term_and_conditions
-	# Validate_customer_API_page.Validate_customer_pass			14
+    # Validate_customer_API_page.Validate_customer_support_test       14        IMG_JAR    
 	# Sent_SMS(OTP)API_page.Sent_OTP
 
 
-	# Set Global Variable		${TRANS_ID}					EU2022071400020
-	# Set Global Variable		${VALUE_OTP}				863561
-	# Set Global Variable		${OTP_REF_NUMBER}			hxni	
+	Set Global Variable		${TRANS_ID}					EU2022072600107
+	Set Global Variable		${VALUE_OTP}				676159
+	Set Global Variable		${OTP_REF_NUMBER}			JgGg	
 
 
-    # Get_data_excel.Get_Data_Customer_MainCase           	14	
-	# Verify_OTP_API_page.Verify_OTP
-	# Get_Consent_API_page.Agree_Consent
-	# Twin_page.Dont_Have_Twin
-	# Check_DOPA_API_page.Check_DOPA
-    # LivenessAPI_page.Liveness_and_FR_Pass
-	# Check_ial_is_2_3                        ${TRANS_ID}    
+    Get_data_excel.Get_Data_Customer_MainCase           	14	
+	Verify_OTP_API_page.Verify_OTP
+	Get_Consent_API_page.Agree_Consent
+	Twin_page.Dont_Have_Twin
+	Check_DOPA_API_page.Check_DOPA
+    LivenessAPI_page.Liveness_and_FR_Pass_support_test              SELFIE_JAR
+	Check_ial_is_2_3                        ${TRANS_ID}    
