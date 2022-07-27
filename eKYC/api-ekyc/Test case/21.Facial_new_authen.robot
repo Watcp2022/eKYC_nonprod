@@ -130,6 +130,12 @@ Facial_authen_20
     Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
     Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
     Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
-
-    
     Connect_database_page.Check_facial_permananceLock_lock          1100600292875
+
+Facial_authen_21
+    [Tags]          Regression
+    [Documentation]        ทดสอบระบบ Facial authen กรณีถ่ายภาพ face rec fail จำนวน x ครั้ง  และเกิด Temp Lock
+    Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
+    Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
+    Run Keyword And Ignore Error                        Facial_authen_page.Facial_fail_authen                       4
+    Connect_database_page.Check_facial_temp_lock                 1100600292875

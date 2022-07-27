@@ -312,3 +312,21 @@ Modify_Validate_customer_2
     [Teardown]      Run Keyword And Ignore Error        save_data_excel_page.Save_Result_Modify_validate_api        4
 
 
+Support_test_QA
+    QR_code_page.Generate_QR_Code_for_support_test                  JARR
+    Main.Start Project
+    QR_code_page.Validate_QR_Code_for_test_qrstamp_scene
+    Get_term_and_conditionAPI_page.Agree_term_and_conditions
+    Validate_customer_API_page.Validate_customer_support_test       14        IMG_JAR    
+    Check_DOPA_API_page.Check_DOPA          
+    LivenessAPI_page.Liveness_and_FR_Pass_support_test              SELFIE_JAR
+    Check_ial_is_2_3                ${TRANS_ID}
+
+
+#LIST_NAME
+##  IMG_AUM / SELFIE_AUM
+##  IMG_BOAT /   SELFIE_BOAT
+##  IMG_JARR   /  SELFIE_JAR   /  row  14
+##  IMG_OIL   /   SELFIE_OIL
+##  IMG_PEPSI  /   SELFIE_PEPSI
+##  IMG_PKK  /   SELFIE_PKK
